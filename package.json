@@ -1,0 +1,27 @@
+{
+  "name": "jechat",
+  "version": "1.0.0",
+  "description": "chat webapp with socket.io, node",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juz3/jechat.git"
+  },
+  "author": "Jussi Koivumäki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Juz3/jechat/issues"
+  },
+  "homepage": "https://github.com/Juz3/jechat#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
