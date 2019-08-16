@@ -8,37 +8,39 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       conversation: [],
-      msg: ""
+      newMessage: "",
+      timestamp: []
     };
   }
 
   componentDidMount() {
-    socket.on("send message", message => {
+    socket.on("send message", payload => {
+      console.log(payload);
       this.setState({
-        conversation: message
+        conversation: payload.msg,
+        timestamp: payload.timestamp
       });
     });
   }
 
   sendMessage = () => {
-    const newMsg = this.state.msg;
-    const conv = this.state.conversation;
+    const newMsg = this.state.newMessage;
+    const msg = this.state.conversation;
 
-    conv.push(newMsg);
-    console.log(conv);
+    msg.push(newMsg);
+    console.log(msg);
 
     this.setState({
-      conversation: conv
+      conversation: msg
     });
     socket.emit("send message", this.state.conversation);
     console.log("send message");
   };
 
+  // Get time from server instead of this
   getTimeStamp = () => {
-    const time = new Date();
-    const formattedTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
-    console.log(formattedTime.toString());
-    return formattedTime.toString();
+    const time = this.state.timestamp;
+    return time;
   };
 
   render() {
@@ -58,10 +60,16 @@ class Chat extends React.Component {
           className="messageForm"
           onSubmit={e => {
             e.preventDefault();
-            this.state.msg.length > 0 ? this.sendMessage() : console.log("msg empty");
+            this.state.newMessage.length > 0 ? this.sendMessage() : console.log("msg empty");
           }}
         >
-          <input className="textInput" onChange={e => this.setState({ msg: e.target.value })} />
+          <input
+            className="textInput"
+            onBlur={e => {
+              this.setState({ newMessage: e.target.value });
+              e.target.value = "";
+            }}
+          />
           <button className="btn">Send</button>
         </form>
       </Fragment>

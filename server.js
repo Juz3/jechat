@@ -3,16 +3,38 @@ const app = express(); // same as 'const app = require("express")();'
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
 
-const convMemory = [];
+let msgMemory = [];
+let tsMemory = [];
 
 io.on("connection", socket => {
   console.log(`User # connected!`);
 
-  socket.on("send message", conv => {
-    console.log("new message: ", conv);
-    convMemory.push(conv[conv.length - 1]);
-    console.log("mem: ", convMemory);
-    io.emit("send message", conv);
+  socket.on("send message", msg => {
+    console.log("new message: ", msg);
+
+    // Save to memory, no db yet
+    msgMemory.push(msg[msg.length - 1]);
+
+    console.log("mem: ", msgMemory);
+
+    const timestamp = new Date();
+    const formattedTime = (
+      timestamp.getHours() +
+      ":" +
+      timestamp.getMinutes() +
+      ":" +
+      timestamp.getSeconds()
+    ).toString();
+
+    tsMemory.push(formattedTime);
+
+    payload = {
+      msg: msg,
+      timestamp: formattedTime
+    };
+    // emit to clients
+    io.emit("send message", payload);
+    console.log(formattedTime);
   });
 
   socket.on("disconnect", () => {

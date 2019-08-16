@@ -18,8 +18,7 @@ li {
 }
 
 .messages {
-  padding: 10px;
-  width: 38%;
+  padding: 30px 10px 10px 10px;
   margin: 0 auto;
   text-align: right;
 }
@@ -44,7 +43,6 @@ li {
 .textInput {
   font-size: 1rem;
   height: 1.5rem;
-  width: 35%;
 }
 
 .btn {
@@ -55,4 +53,56 @@ li {
   color: #fff;
   border-style: groove solid;
   border-color: rgb(15, 31, 85);
+}
+
+/* Extra small devices */
+@media (max-width: 575px) {
+  .messages,
+  .textInput {
+    width: 95%;
+  }
+}
+
+/* Small devices */
+@media (min-width: 576px) {
+  .messages {
+    width: 80%;
+  }
+
+  .textInput {
+    width: 70%;
+  }
+}
+
+/* Medium */
+@media (min-width: 768px) {
+  .messages {
+    width: 70%;
+  }
+
+  .textInput {
+    width: 60%;
+  }
+}
+
+/* Large devices */
+@media (min-width: 992px) {
+  .messages {
+    width: 50%;
+  }
+
+  .textInput {
+    width: 40%;
+  }
+}
+
+/* Extra large devices */
+@media (min-width: 1200px) {
+  .messages {
+    width: 38%;
+  }
+
+  .textInput {
+    width: 30%;
+  }
 }
