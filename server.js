@@ -2,6 +2,7 @@ const express = require("express");
 const app = express(); // same as 'const app = require("express")();'
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
+const path = require("path");
 
 let msgMemory = [];
 
@@ -65,14 +66,25 @@ io.on("connection", socket => {
   });
 });
 
+/* // FOR DEV TESTING BUILD LOCALLY
+
+app.use(express.static(path.join(__dirname, "client/build")));
+
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+}); */
+
 // Serve static build in prod
 if (process.env.NODE_ENV === "production") {
+  console.log("node env", process.env.NODE_ENV);
   // Set static folder
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
+} else {
+  console.log("node env", process.env.NODE_ENV);
 }
 
 const PORT = process.env.PORT || 4999;
