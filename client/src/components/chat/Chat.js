@@ -8,6 +8,7 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       conversation: [],
+      newMsg: "",
       newMessage: {},
       timestamp: [],
       loaded: false
@@ -16,7 +17,7 @@ class Chat extends React.Component {
 
   componentDidMount() {
     socket.on("send message", payload => {
-      console.log(payload);
+      /* console.log(payload); */
       this.setState({
         conversation: payload,
         loaded: true
@@ -39,7 +40,15 @@ class Chat extends React.Component {
   }; */
 
   sendMessage = () => {
-    const newMessage = this.state.newMessage;
+    // clear input
+    this.mainInput.value = "";
+
+    const newMessage = {
+      user: "User",
+      msg: this.state.newMsg,
+      timestamp: this.getTimeStamp()
+    };
+
     const convo = this.state.conversation;
 
     convo.push(newMessage);
@@ -62,9 +71,13 @@ class Chat extends React.Component {
     if (minutes < 10) minutes = ("0" + minutes).toString();
 
     const formattedTime = hours + ":" + minutes + ":" + seconds;
-    console.log(formattedTime.toString());
+    /* console.log(formattedTime.toString()); */
     return formattedTime.toString();
   };
+
+  clearInput() {
+    console.log("clear");
+  }
 
   render() {
     const conversation = this.state.loaded
@@ -77,9 +90,9 @@ class Chat extends React.Component {
         ))
       : null;
 
-    if (this.state.loaded) {
+    /* if (this.state.loaded) {
       console.log("conv in render", this.state.conversation);
-    }
+    } */
 
     return (
       <Fragment>
@@ -89,22 +102,19 @@ class Chat extends React.Component {
           className="messageForm"
           onSubmit={e => {
             e.preventDefault();
-            this.state.newMessage.msg.length > 0
+            this.state.newMsg.length > 0
               ? this.sendMessage()
               : console.log("msg empty");
           }}
         >
           <input
             className="textInput"
-            onBlur={e => {
+            ref={ref => (this.mainInput = ref)}
+            onChange={e => {
               this.setState({
-                newMessage: {
-                  user: "newUser",
-                  msg: e.target.value,
-                  timestamp: this.getTimeStamp()
-                }
+                newMsg: e.target.value
               });
-              e.target.value = "";
+              /* e.target.value = ""; */
             }}
           />
           <button className="btn">Send</button>
