@@ -77,7 +77,9 @@ class Chat extends React.Component {
         ))
       : null;
 
-    console.log(this.state.conversation);
+    if (this.state.loaded) {
+      console.log("conv in render", this.state.conversation);
+    }
 
     return (
       <Fragment>
@@ -87,14 +89,20 @@ class Chat extends React.Component {
           className="messageForm"
           onSubmit={e => {
             e.preventDefault();
-            this.state.newMessage.msg.length > 0 ? this.sendMessage() : console.log("msg empty");
+            this.state.newMessage.msg.length > 0
+              ? this.sendMessage()
+              : console.log("msg empty");
           }}
         >
           <input
             className="textInput"
             onBlur={e => {
               this.setState({
-                newMessage: { user: "newUser", msg: e.target.value, timestamp: this.getTimeStamp() }
+                newMessage: {
+                  user: "newUser",
+                  msg: e.target.value,
+                  timestamp: this.getTimeStamp()
+                }
               });
               e.target.value = "";
             }}

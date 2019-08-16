@@ -33,13 +33,7 @@ io.on("connection", socket => {
       timestamp.getSeconds()
     ).toString();
 
-    payload = [
-      {
-        user: "defaultUser",
-        msg: msg,
-        timestamp: timestamp
-      }
-    ];
+    payload = msg;
     // emit to clients
     io.emit("send message", payload);
     console.log(formattedTime);
