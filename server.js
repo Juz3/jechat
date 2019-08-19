@@ -24,22 +24,23 @@ getTime = () => {
 io.on("connection", socket => {
   console.log(`User # connected!`);
 
-  // Initial test message
+  /* // Initial test message
   io.emit("send message", [
     {
       user: "server",
       msg: "Message of the day",
       timestamp: getTime()
     }
-  ]);
+  ]); */
 
   socket.on("send message", msg => {
     console.log("new message: ", msg);
 
     console.log(msg.length);
 
-    if (msg.length > 20) {
-      msg.length = 1;
+    if (msg.length > 40) {
+      //msg.length = 1;
+      msg.splice(0, 1);
     }
 
     const timestamp = new Date();

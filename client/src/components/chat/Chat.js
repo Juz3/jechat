@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
 
-//const socket = socketClient("http://localhost:4999");
 const socket = socketClient("/");
 
 class Chat extends React.Component {
@@ -26,20 +25,6 @@ class Chat extends React.Component {
     });
   }
 
-  /*   sendMessage = () => {
-    const newMsg = this.state.newMessage;
-    const msg = this.state.conversation;
-
-    msg.push(newMsg);
-    console.log(msg);
-
-    this.setState({
-      conversation: msg
-    });
-    socket.emit("send message", this.state.conversation);
-    console.log("send message");
-  }; */
-
   sendMessage = () => {
     // clear input
     this.mainInput.value = "";
@@ -53,6 +38,9 @@ class Chat extends React.Component {
     const convo = this.state.conversation;
 
     convo.push(newMessage);
+    this.setState({
+      newMsg: ""
+    });
     console.log(convo);
 
     this.setState({
@@ -72,7 +60,7 @@ class Chat extends React.Component {
     if (minutes < 10) minutes = ("0" + minutes).toString();
 
     const formattedTime = hours + ":" + minutes + ":" + seconds;
-    /* console.log(formattedTime.toString()); */
+
     return formattedTime.toString();
   };
 
@@ -90,10 +78,6 @@ class Chat extends React.Component {
           </li>
         ))
       : null;
-
-    /* if (this.state.loaded) {
-      console.log("conv in render", this.state.conversation);
-    } */
 
     return (
       <Fragment>
