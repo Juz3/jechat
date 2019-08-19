@@ -28,7 +28,7 @@ io.on("connection", socket => {
   io.emit("send message", [
     {
       user: "server",
-      msg: "initial test message",
+      msg: "Message of the day",
       timestamp: getTime()
     }
   ]);
