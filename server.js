@@ -8,7 +8,8 @@ let msgMemory = [];
 
 getTime = () => {
   const time = new Date();
-  const hours = time.getHours();
+  const EEST_DIFFERENCE = 3;
+  const hours = time.getHours() + EEST_DIFFERENCE;
   let minutes = time.getMinutes();
   let seconds = time.getSeconds();
 
@@ -61,15 +62,7 @@ io.on("connection", socket => {
   });
 });
 
-/* // FOR DEV TESTING BUILD LOCALLY
-
-app.use(express.static(path.join(__dirname, "client/build")));
-
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-}); */
-
-// Serve static build in prod
+// Serve static build in production
 if (process.env.NODE_ENV === "production") {
   console.log("node env", process.env.NODE_ENV);
   // Set static folder
@@ -83,5 +76,4 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 4999;
-//io.listen(PORT), () => console.log(`Listening on port ${PORT}`);
 httpServer.listen(PORT), () => console.log(`Listening on port ${PORT}`);

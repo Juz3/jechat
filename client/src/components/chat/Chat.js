@@ -24,7 +24,6 @@ class Chat extends React.Component {
         loaded: true
       });
     });
-    console.log("did mount");
   }
 
   /*   sendMessage = () => {
