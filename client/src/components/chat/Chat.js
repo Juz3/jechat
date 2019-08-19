@@ -26,7 +26,6 @@ class Chat extends React.Component {
   }
 
   sendMessage = () => {
-    // clear input
     this.mainInput.value = "";
 
     const newMessage = {
@@ -64,9 +63,16 @@ class Chat extends React.Component {
     return formattedTime.toString();
   };
 
-  clearInput() {
-    console.log("clear");
-  }
+  /*   setMessage(e) {
+    if (e.target.value.length < 50) {
+      console.log("call");
+      this.setState({
+        newMsg: e.target.value
+      });
+    } else {
+      console.log("msg too long");
+    }
+  } */
 
   render() {
     const conversation = this.state.loaded
@@ -93,13 +99,17 @@ class Chat extends React.Component {
           <input
             className="textInput"
             ref={ref => (this.mainInput = ref)}
+            minLength="1"
+            maxLength="400"
             onChange={e => {
-              this.setState({
-                newMsg: e.target.value
-              });
-              /* e.target.value = ""; */
+              e.target.value.length < 401
+                ? this.setState({
+                    newMsg: e.target.value
+                  })
+                : console.log("message too long");
             }}
           />
+          {/*{"\uD83D\uDE0E"}*/}
           <button className="btn">Send</button>
         </form>
       </Fragment>
