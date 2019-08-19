@@ -20,7 +20,7 @@ getTime = () => {
   return formattedTime;
 };
 
-io.on("connection", socket => {
+/* io.on("connection", socket => {
   console.log(`User # connected!`);
 
   // Initial test message
@@ -41,11 +41,6 @@ io.on("connection", socket => {
       msg.length = 1;
     }
 
-    /*     // Save to memory, no db yet
-    msgMemory.push(msg[msg.length - 1]);
-    console.log("mem: ", msgMemory); 
-    */
-
     const timestamp = new Date();
     const formattedTime = (
       timestamp.getHours() +
@@ -64,7 +59,7 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log(`User # disconnected.`);
   });
-});
+}); */
 
 /* // FOR DEV TESTING BUILD LOCALLY
 
@@ -88,4 +83,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 4999;
-io.listen(PORT), () => console.log(`Listening on port ${PORT}`);
+//io.listen(PORT), () => console.log(`Listening on port ${PORT}`);
+app.listen(PORT), () => console.log(`Listening on port ${PORT}`);
