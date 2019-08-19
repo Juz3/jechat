@@ -22,6 +22,7 @@ class Chat extends React.Component {
         conversation: payload,
         loaded: true
       });
+      document.title = "* Jechat";
     });
   }
 
@@ -108,6 +109,7 @@ class Chat extends React.Component {
                   })
                 : console.log("message too long");
             }}
+            onClick={() => (document.title = "Jechat")}
           />
           {/*{"\uD83D\uDE0E"}*/}
           <button className="btn">Send</button>
