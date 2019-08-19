@@ -1,2 +1,2 @@
 # jechat
-a chat
+Chat app built with Socket.io, Node.js and React
