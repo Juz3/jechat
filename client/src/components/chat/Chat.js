@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
+import Spinner from "../utilities/Spinner";
 
 const socket = socketClient("/");
 
@@ -17,11 +18,12 @@ class Chat extends React.Component {
 
   componentDidMount() {
     socket.on("send message", payload => {
-      //console.log(payload);
+      console.log(payload);
       this.setState({
         conversation: payload,
         loaded: true
       });
+
       document.title = "* Jechat";
     });
   }
@@ -41,14 +43,23 @@ class Chat extends React.Component {
     this.setState({
       newMsg: ""
     });
-    console.log(convo);
+
+    // console.log(convo);
 
     this.setState({
       conversation: convo
     });
+
     socket.emit("send message", this.state.conversation);
-    console.log("send message");
   };
+
+  validateMessage(e) {
+    e.target.value.length < 401
+      ? this.setState({
+          newMsg: e.target.value
+        })
+      : console.log("message too long");
+  }
 
   getTimeStamp = () => {
     const time = new Date();
@@ -64,27 +75,29 @@ class Chat extends React.Component {
     return formattedTime.toString();
   };
 
-  /*   setMessage(e) {
-    if (e.target.value.length < 50) {
-      console.log("call");
-      this.setState({
-        newMsg: e.target.value
-      });
-    } else {
-      console.log("msg too long");
-    }
-  } */
-
   render() {
-    const conversation = this.state.loaded
-      ? this.state.conversation.map((entry, index) => (
-          <li key={index}>
-            <div className="username">{entry.user}</div>
-            <div className="timestamp">{entry.timestamp}</div>
-            <div className="msg">{entry.msg}</div>
-          </li>
-        ))
-      : null;
+    const conversation = this.state.loaded ? (
+      this.state.conversation.map((entry, index) => (
+        <li key={index}>
+          <div className="username">{entry.user}</div>
+          <div className="timestamp">{entry.timestamp}</div>
+          <div className="msg">{entry.msg}</div>
+        </li>
+      ))
+    ) : (
+      <Fragment>
+        <li>
+          <div className="username" style={{ color: "rgb(70, 93, 170)" }}>
+            Jechat
+          </div>
+          <div className="timestamp">{this.getTimeStamp()}</div>
+          <div className="msg" style={{ color: "#ddd" }}>
+            Message of the day
+          </div>
+        </li>
+        {/* <Spinner /> */}
+      </Fragment>
+    );
 
     return (
       <Fragment>
@@ -103,11 +116,7 @@ class Chat extends React.Component {
             minLength="1"
             maxLength="400"
             onChange={e => {
-              e.target.value.length < 401
-                ? this.setState({
-                    newMsg: e.target.value
-                  })
-                : console.log("message too long");
+              this.validateMessage(e);
             }}
             onClick={() => (document.title = "Jechat")}
           />

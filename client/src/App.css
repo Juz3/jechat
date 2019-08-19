@@ -60,6 +60,19 @@ li {
   border-color: rgb(15, 31, 85);
 }
 
+#spinner {
+  animation: spinner 3s infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Extra small devices */
 @media (max-width: 575px) {
   .messages,
