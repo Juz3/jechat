@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
-import Spinner from "../utilities/Spinner";
+/* import Spinner from "../utilities/Spinner"; */
 
 const socket = socketClient("/");
 
@@ -32,7 +32,7 @@ class Chat extends React.Component {
     this.mainInput.value = "";
 
     const newMessage = {
-      user: "User",
+      user: this.props.username,
       msg: this.state.newMsg,
       timestamp: this.getTimeStamp()
     };
@@ -99,10 +99,8 @@ class Chat extends React.Component {
       </Fragment>
     );
 
-    return (
-      <Fragment>
-        <ul className="messages">{conversation}</ul>
-
+    const form =
+      this.props.username.length > 2 ? (
         <form
           className="messageForm"
           onSubmit={e => {
@@ -123,6 +121,15 @@ class Chat extends React.Component {
           {/*{"\uD83D\uDE0E"}*/}
           <button className="btn">Send</button>
         </form>
+      ) : (
+        <div> </div>
+      );
+
+    return (
+      <Fragment>
+        <ul className="messages">{conversation}</ul>
+
+        {form}
       </Fragment>
     );
   }
