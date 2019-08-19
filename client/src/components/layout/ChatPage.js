@@ -1,13 +1,13 @@
 import React, { Fragment, useState } from "react";
 import Chat from "../chat/Chat";
-import Landing from "../landing/Landing";
+import UserForm from "./UserForm";
 
 const ChatPage = () => {
   const [username, setUsername] = useState("");
 
   return (
     <Fragment>
-      <Landing setName={setUsername} />
+      <UserForm setName={setUsername} />
       <Chat username={username} />
     </Fragment>
   );
