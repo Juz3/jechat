@@ -83,4 +83,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 4999;
-io.listen(PORT), () => console.log(`Listening on port ${PORT}`);
+//io.listen(PORT), () => console.log(`Listening on port ${PORT}`);
+httpServer.listen(PORT), () => console.log(`Listening on port ${PORT}`);

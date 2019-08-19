@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
 
-/* const socket = socketClient("http://localhost:4999"); */
+//const socket = socketClient("http://localhost:4999");
+const socket = socketClient("/");
 
 class Chat extends React.Component {
   constructor(props) {
@@ -16,13 +17,13 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    /* socket.on("send message", payload => {
+    socket.on("send message", payload => {
       //console.log(payload);
       this.setState({
         conversation: payload,
         loaded: true
       });
-    }); */
+    });
     console.log("did mount");
   }
 
@@ -58,7 +59,7 @@ class Chat extends React.Component {
     this.setState({
       conversation: convo
     });
-    /* socket.emit("send message", this.state.conversation); */
+    socket.emit("send message", this.state.conversation);
     console.log("send message");
   };
 
