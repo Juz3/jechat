@@ -1,8 +1,18 @@
 import React, { Fragment, useState } from "react";
+import colorArray from "../layout/colors";
 
 const UserForm = props => {
   const [username, setUsername] = useState("");
   const [submit, setSubmit] = useState(false);
+
+  const getColor = () => {
+    const MIN = 0;
+    const MAX = colorArray.length;
+
+    const colorNumber = Math.floor(Math.random() * (MAX - MIN));
+    const color = colorArray[colorNumber];
+    return color;
+  };
 
   return (
     <Fragment>
@@ -16,7 +26,7 @@ const UserForm = props => {
           onSubmit={e => {
             e.preventDefault();
             setSubmit(true);
-            props.setName(username);
+            props.setUserObject({ username: username, color: getColor() });
           }}
         >
           <p className="p-1">Nickname: {username}</p>

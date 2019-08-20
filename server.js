@@ -4,7 +4,7 @@ const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
 const path = require("path");
 
-let msgMemory = [];
+let conversationMemory = [];
 
 getTime = () => {
   const time = new Date();
@@ -28,19 +28,19 @@ io.on("connection", socket => {
   io.emit("send message", [
     {
       user: "server",
-      msg: "Message of the day",
+      conversation: "Message of the day",
       timestamp: getTime()
     }
   ]); */
 
-  socket.on("send message", msg => {
-    console.log("new message: ", msg);
+  socket.on("send message", conversation => {
+    console.log("new message: ", conversation);
 
-    console.log(msg.length);
+    console.log(conversation.length);
 
-    if (msg.length > 40) {
-      //msg.length = 1;
-      msg.splice(0, 1);
+    if (conversation.length > 40) {
+      //conversation.length = 1;
+      conversation.splice(0, 1);
     }
 
     const timestamp = new Date();
@@ -52,7 +52,7 @@ io.on("connection", socket => {
       timestamp.getSeconds()
     ).toString();
 
-    let payload = msg;
+    let payload = conversation;
     // emit to clients
     io.emit("send message", payload);
     console.log(formattedTime);

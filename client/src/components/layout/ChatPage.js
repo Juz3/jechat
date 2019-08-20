@@ -3,12 +3,12 @@ import Chat from "../chat/Chat";
 import UserForm from "./UserForm";
 
 const ChatPage = () => {
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState({ username: null, color: null });
 
   return (
     <Fragment>
-      <UserForm setName={setUsername} />
-      <Chat username={username} />
+      <UserForm setUserObject={setUser} />
+      <Chat user={user} />
     </Fragment>
   );
 };
