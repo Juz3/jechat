@@ -27,11 +27,13 @@ li {
 
 .username {
   width: 16.66%;
+  overflow-wrap: break-word;
 }
 
 .timestamp {
   width: 16.66%;
   color: rgb(143, 143, 143);
+  padding-right: 20px;
 }
 
 .msg {
@@ -47,12 +49,18 @@ li {
   font-family: "Lato", sans-serif;
   font-size: 1rem;
   height: 1.5rem;
+  background: rgb(64, 66, 70);
+  color: #fff;
+  border: 1px solid rgb(83, 89, 109);
 }
 
 .usernameInput {
   font-family: "Lato", sans-serif;
   font-size: 1rem;
   height: 1.5rem;
+  background: rgb(64, 66, 70);
+  color: #fff;
+  border: 1px solid rgb(83, 89, 109);
 }
 
 .btn {
@@ -72,6 +80,13 @@ li {
 
 #spinner {
   animation: spinner 3s infinite;
+}
+
+.colorCheatSheet {
+  color: rgb(53, 88, 202), rgb(35, 143, 80), rgb(143, 109, 35), rgb(126, 58, 214), rgb(7, 114, 163),
+    rgb(228, 120, 100), rgb(138, 50, 91), rgb(34, 168, 230), rgb(65, 141, 46), rgb(209, 179, 114),
+    rgb(224, 178, 27), rgb(74, 128, 96), rgb(134, 226, 233), rgb(194, 51, 51), rgb(115, 131, 122),
+    rgb(74, 104, 148);
 }
 
 @keyframes spinner {

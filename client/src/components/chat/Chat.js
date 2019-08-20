@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
+import colorArray from "../layout/colors";
 /* import Spinner from "../utilities/Spinner"; */
 
 const socket = socketClient("/");
@@ -44,8 +45,6 @@ class Chat extends React.Component {
       newMsg: ""
     });
 
-    // console.log(convo);
-
     this.setState({
       conversation: convo
     });
@@ -75,11 +74,36 @@ class Chat extends React.Component {
     return formattedTime.toString();
   };
 
+  randomColor() {
+    const RGB_MAX = 255;
+
+    const randomColor = [
+      Math.floor(Math.random() * RGB_MAX),
+      Math.floor(Math.random() * RGB_MAX),
+      Math.floor(Math.random() * RGB_MAX)
+    ];
+    const rgbColor = `rgb(${randomColor[0]},${randomColor[1]},${randomColor[2]})`;
+    this.getColor();
+
+    return rgbColor;
+  }
+
+  getColor() {
+    const MIN = 0;
+    const MAX = colorArray.length;
+
+    const colorNumber = Math.floor(Math.random() * (MAX - MIN));
+    const color = colorArray[colorNumber];
+    return color;
+  }
+
   render() {
     const conversation = this.state.loaded ? (
       this.state.conversation.map((entry, index) => (
         <li key={index}>
-          <div className="username">{entry.user}</div>
+          <div className="username" style={{ color: this.getColor() }}>
+            {entry.user}
+          </div>
           <div className="timestamp">{entry.timestamp}</div>
           <div className="msg">{entry.msg}</div>
         </li>
@@ -113,6 +137,7 @@ class Chat extends React.Component {
             ref={ref => (this.mainInput = ref)}
             minLength="1"
             maxLength="400"
+            placeholder="Write a message ..."
             onChange={e => {
               this.validateMessage(e);
             }}

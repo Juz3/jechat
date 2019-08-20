@@ -6,7 +6,7 @@ const UserForm = props => {
 
   return (
     <Fragment>
-      {username.length > 2 && submit ? (
+      {username.length > 1 && username.length < 25 && submit ? (
         <p className="p-1">
           Nickname: <strong>{username}</strong>
         </p>
@@ -22,6 +22,9 @@ const UserForm = props => {
           <p className="p-1">Nickname: {username}</p>
           <input
             className="usernameInput"
+            minLength="1"
+            maxLength="24"
+            placeholder="nickname"
             onChange={e => setUsername(e.target.value)}
           />
           <button className="btn">Ok</button>
