@@ -74,6 +74,16 @@ li {
   border-color: rgb(15, 31, 85);
 }
 
+.btn-small {
+  font-family: "Lato", sans-serif;
+  height: 1.2rem;
+  font-size: 0.75rem;
+  margin: 0;
+  background: rgb(71, 45, 45);
+  color: #fff;
+  border: 1px solid black;
+}
+
 .p-1 {
   color: #d1d1d1;
 }
