@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
-import colorArray from "../layout/colors";
 /* import Spinner from "../utilities/Spinner"; */
 
 const socket = socketClient("/");
@@ -100,34 +99,32 @@ class Chat extends React.Component {
       </Fragment>
     );
 
-    const form =
-      //this.props.user.username.length > 2 ? (
-      5 > 2 ? (
-        <form
-          className="messageForm"
-          onSubmit={e => {
-            e.preventDefault();
-            console.log(this.props.user);
-            this.state.newMsg.length > 0 ? this.sendMessage() : console.log("msg empty");
+    const form = this.props.user.username ? (
+      <form
+        className="messageForm"
+        onSubmit={e => {
+          e.preventDefault();
+          console.log(this.props.user.username);
+          this.state.newMsg.length > 0 ? this.sendMessage() : console.log("msg empty");
+        }}
+      >
+        <input
+          className="textInput"
+          ref={ref => (this.mainInput = ref)}
+          minLength="1"
+          maxLength="400"
+          placeholder="Write a message..."
+          onChange={e => {
+            this.validateMessage(e);
           }}
-        >
-          <input
-            className="textInput"
-            ref={ref => (this.mainInput = ref)}
-            minLength="1"
-            maxLength="400"
-            placeholder="Write a message..."
-            onChange={e => {
-              this.validateMessage(e);
-            }}
-            onClick={() => (document.title = "Jechat")}
-          />
-          {/*{"\uD83D\uDE0E"}*/}
-          <button className="btn">Send</button>
-        </form>
-      ) : (
-        <div> </div>
-      );
+          onClick={() => (document.title = "Jechat")}
+        />
+        {/*{"\uD83D\uDE0E"}*/}
+        <button className="btn">Send</button>
+      </form>
+    ) : (
+      <div> </div>
+    );
 
     return (
       <Fragment>

@@ -9,7 +9,14 @@ let conversationMemory = [];
 getTime = () => {
   const time = new Date();
   const EEST_DIFFERENCE = 3;
-  const hours = time.getHours() + EEST_DIFFERENCE;
+  let hours;
+
+  // In production, use UTC, otherwise use EEST.
+  if (process.env.NODE_ENV === "production") {
+    hours = time.getHours() + EEST_DIFFERENCE;
+  } else {
+    hours = time.getHours();
+  }
   let minutes = time.getMinutes();
   let seconds = time.getSeconds();
 
@@ -24,40 +31,34 @@ getTime = () => {
 io.on("connection", socket => {
   console.log(`User # connected!`);
 
-  /* // Initial test message
-  io.emit("send message", [
-    {
-      user: "server",
-      conversation: "Message of the day",
-      timestamp: getTime()
-    }
-  ]); */
-
+  if (conversationMemory.length > 1) io.emit("send message", conversationMemory);
+  // on send message
   socket.on("send message", conversation => {
     console.log("new message: ", conversation);
 
-    console.log(conversation.length);
+    const oldestMessageTimestamp = conversation[0].timestamp;
+    const oldTime = oldestMessageTimestamp.split(":");
+    const oldMsgHours = parseInt(oldTime[0]);
+    //const oldMsgMinutes = parseInt(oldTime[1]);
 
-    if (conversation.length > 40) {
+    const newTimeHours = new Date().getHours();
+
+    conversationMemory = conversation;
+
+    // When over 40 messages or oldest message is over 2 hours old, remove oldest
+    if (conversation.length > 40 || newTimeHours - oldMsgHours > 2) {
       //conversation.length = 1;
       conversation.splice(0, 1);
+      conversationMemory.splice(0, 1);
     }
 
-    const timestamp = new Date();
-    const formattedTime = (
-      timestamp.getHours() +
-      ":" +
-      timestamp.getMinutes() +
-      ":" +
-      timestamp.getSeconds()
-    ).toString();
+    let payload = conversationMemory;
 
-    let payload = conversation;
-    // emit to clients
     io.emit("send message", payload);
-    console.log(formattedTime);
+    //console.log(getTime());
   });
 
+  // on disconnect
   socket.on("disconnect", () => {
     console.log(`User # disconnected.`);
   });
@@ -65,15 +66,12 @@ io.on("connection", socket => {
 
 // Serve static build in production
 if (process.env.NODE_ENV === "production") {
-  console.log("node env", process.env.NODE_ENV);
   // Set static folder
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
-} else {
-  console.log("node env", process.env.NODE_ENV);
 }
 
 const PORT = process.env.PORT || 4999;
