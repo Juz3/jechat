@@ -116,7 +116,7 @@ class Chat extends React.Component {
             ref={ref => (this.mainInput = ref)}
             minLength="1"
             maxLength="400"
-            placeholder="Write a message ..."
+            placeholder="Write a message..."
             onChange={e => {
               this.validateMessage(e);
             }}
