@@ -3,30 +3,18 @@ const app = express(); // same as 'const app = require("express")();'
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
 const path = require("path");
+const getTime = require("./utilities/getTime");
+const connectDB = require("./config/db");
+
+connectDB();
+
+app.use(express.json({ extended: false }));
+
+// Routes
+app.use("/api/users", require("./routes/api/users"));
+//app.use('/api/auth', require('./routes/api/auth'));
 
 let conversationMemory = [];
-
-getTime = () => {
-  const time = new Date();
-  const EEST_DIFFERENCE = 3;
-  let hours;
-
-  // In production, use UTC, otherwise use EEST.
-  if (process.env.NODE_ENV === "production") {
-    hours = time.getHours() + EEST_DIFFERENCE;
-  } else {
-    hours = time.getHours();
-  }
-  let minutes = time.getMinutes();
-  let seconds = time.getSeconds();
-
-  if (seconds < 10) seconds = ("0" + seconds).toString();
-  if (minutes < 10) minutes = ("0" + minutes).toString();
-
-  const formattedTime = hours + ":" + minutes + ":" + seconds;
-
-  return formattedTime;
-};
 
 io.on("connection", socket => {
   console.log(`User # connected!`);
@@ -74,5 +62,5 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const PORT = process.env.PORT || 4999;
+const PORT = process.env.PORT || 5000;
 httpServer.listen(PORT), () => console.log(`Listening on port ${PORT}`);
