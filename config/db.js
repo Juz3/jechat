@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
-const config = require("./config.json");
-
-/* const connectDB = () => {
-  console.log(config.mongoURI);
-}; */
+const config = require("./index");
 
 const connectDB = async () => {
   try {

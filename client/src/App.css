@@ -158,7 +158,8 @@ a:visited {
 }
 
 .navbar a:hover {
-  text-decoration: underline;
+  /* font-weight: 600; */
+  color: rgb(185, 233, 255);
 }
 
 #spinner {
