@@ -16,20 +16,24 @@ const LoginForm = () => {
           submitLogin(e);
         }}
       >
+        <label htmlFor="username">Username</label>
         <input
           className="loginInput"
           id="loginUsername"
-          placeholder="username"
+          placeholder=""
+          name="username"
           onChange={e => {
             setUsername(e.target.value);
           }}
           required
         />
+        <label htmlFor="password">Password</label>
         <input
           className="loginInput"
           id="loginPw"
           type="password"
-          placeholder="password"
+          placeholder=""
+          name="password"
           required
         />
         <button className="btn">Login</button>

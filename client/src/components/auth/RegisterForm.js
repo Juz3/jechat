@@ -16,28 +16,33 @@ const RegisterForm = () => {
           submitRegister(e);
         }}
       >
+        <label htmlFor="username">Username</label>
         <input
           className="registerInput"
           id="registerUsername"
-          placeholder="username"
+          placeholder=""
+          name="username"
           onChange={e => {
             setUsername(e.target.value);
           }}
           required
         />
+        <label htmlFor="username">Password</label>
         <input
           className="registerInput"
           id="registerPw"
           type="password"
-          placeholder="password"
+          placeholder=""
+          name="password"
           required
         />
-
+        <label htmlFor="username">Confirm password</label>
         <input
           className="registerInput"
           id="registerPw2"
           type="password"
-          placeholder="retype password"
+          placeholder=""
+          name="password2"
           required
         />
         <button className="btn">Register</button>

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 
-/* For 'components/layout/colors.js' */
+/* For setting colors easily in 'components/layout/colors.js' */
 .colorCheatSheet {
   color: rgb(53, 88, 202), rgb(35, 143, 80), rgb(143, 109, 35), rgb(126, 58, 214), rgb(7, 114, 163),
     rgb(228, 120, 100), rgb(138, 50, 91), rgb(34, 168, 230), rgb(65, 141, 46), rgb(209, 179, 114),
@@ -8,9 +8,15 @@
     rgb(74, 104, 148);
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: "Lato", Arial, sans-serif;
-  background: rgb(47, 50, 54);
+  height: 100%;
+  background-color: rgb(47, 50, 54);
+  background-image: linear-gradient(rgb(47, 50, 54), rgb(35, 38, 41));
   margin: 0;
 }
 
@@ -68,6 +74,8 @@ body {
   font-family: "Lato", sans-serif;
   font-size: 1rem;
   height: 1.5rem;
+  margin: 5px;
+  text-align: center;
   background: rgb(64, 66, 70);
   color: #fff;
   border: 1px solid rgb(83, 89, 109);
@@ -90,9 +98,12 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 30%;
   margin: 50px auto;
   justify-content: center;
+}
+
+label {
+  color: rgb(223, 223, 223);
 }
 
 .btn {
@@ -131,18 +142,8 @@ body {
   justify-content: center;
 }
 
-.el-1 {
-  color: #fff;
-  padding: 0;
-  animation: ellipsis 1s infinite;
-}
-
-.el-2 {
-  color: #fff;
-  padding: 0;
-  animation: ellipsis 1s infinite;
-}
-
+.el-1,
+.el-2,
 .el-3 {
   color: #fff;
   padding: 0;
@@ -151,10 +152,9 @@ body {
 
 .navbar {
   background-color: rgb(22, 24, 31);
-  background-image: linear-gradient(to bottom right, rgb(18, 20, 27), rgb(19, 30, 75));
+  background-image: linear-gradient(to bottom right, rgb(18, 20, 27), rgb(24, 36, 83));
   display: flex;
   width: 100%;
-
   justify-content: center;
 }
 
@@ -217,6 +217,13 @@ a:visited {
   .usernameInput {
     width: 40%;
   }
+  /*   .msg {
+    width: auto;
+  } */
+  .loginForm,
+  .registerForm {
+    width: 50%;
+  }
 }
 
 /* Small devices */
@@ -230,6 +237,10 @@ a:visited {
   }
   .usernameInput {
     width: 30%;
+  }
+  .loginForm,
+  .registerForm {
+    width: 45%;
   }
 }
 
@@ -245,6 +256,10 @@ a:visited {
   .usernameInput {
     width: 25%;
   }
+  .loginForm,
+  .registerForm {
+    width: 35%;
+  }
 }
 
 /* Large devices */
@@ -252,17 +267,38 @@ a:visited {
   .messages {
     width: 50%;
   }
-
   .textInput {
     width: 40%;
   }
   .usernameInput {
     width: 20%;
   }
+  .loginForm,
+  .registerForm {
+    width: 30%;
+  }
 }
 
 /* Extra large devices */
 @media (min-width: 1200px) {
+  .messages {
+    width: 45%;
+  }
+
+  .textInput {
+    width: 35%;
+  }
+  .usernameInput {
+    width: 17.5%;
+  }
+  .loginForm,
+  .registerForm {
+    width: 25%;
+  }
+}
+
+/* XXL, normal desktop */
+@media (min-width: 1400px) {
   .messages {
     width: 38%;
   }
@@ -272,5 +308,10 @@ a:visited {
   }
   .usernameInput {
     width: 15%;
+  }
+  .loginForm,
+  .registerForm {
+    width: 20%;
+    max-width: 350px;
   }
 }

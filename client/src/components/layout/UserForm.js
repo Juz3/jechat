@@ -11,10 +11,12 @@ const UserForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    setSubmit(true);
-    localStorage.setItem("jechat-nickname", username);
-    const userColor = getColor();
-    props.setUserObject({ username: username, color: userColor });
+    if (username.length > 1) {
+      setSubmit(true);
+      localStorage.setItem("jechat-nickname", username);
+      const userColor = getColor();
+      props.setUserObject({ username: username, color: userColor });
+    }
   };
 
   const clearStorage = () => {

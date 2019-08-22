@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import RegisterForm from "./RegisterForm";
-import axios from "axios";
+/* import axios from "axios"; */
 
 const Register = () => {
   return (
