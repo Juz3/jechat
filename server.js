@@ -34,12 +34,13 @@ io.on("connection", socket => {
 
     conversationMemory = conversation;
 
-    /*     // When over 40 messages or oldest message is over 2 hours old, remove oldest
+    // When over 40 messages or oldest message is over 2 hours old, remove oldest
     if (conversation.length > 40 || newTimeHours - oldMsgHours > 2) {
+      console.log("oldest ts", oldestMessageTimestamp);
       //conversation.length = 1;
       conversation.splice(0, 1);
       conversationMemory.splice(0, 1);
-    } */
+    }
 
     let payload = conversationMemory;
 
