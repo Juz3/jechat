@@ -19,7 +19,8 @@ let conversationMemory = [];
 io.on("connection", socket => {
   console.log(`User # connected!`);
 
-  if (conversationMemory.length > 1) io.emit("send message", conversationMemory);
+  if (conversationMemory.length > 1)
+    io.emit("send message", conversationMemory);
   // on send message
   socket.on("send message", conversation => {
     console.log("new message: ", conversation);
@@ -33,12 +34,12 @@ io.on("connection", socket => {
 
     conversationMemory = conversation;
 
-    // When over 40 messages or oldest message is over 2 hours old, remove oldest
+    /*     // When over 40 messages or oldest message is over 2 hours old, remove oldest
     if (conversation.length > 40 || newTimeHours - oldMsgHours > 2) {
       //conversation.length = 1;
       conversation.splice(0, 1);
       conversationMemory.splice(0, 1);
-    }
+    } */
 
     let payload = conversationMemory;
 
