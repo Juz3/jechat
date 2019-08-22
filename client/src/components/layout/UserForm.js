@@ -39,10 +39,10 @@ const UserForm = props => {
           ) : null}
         </Fragment>
       ) : (
-        <form className="usernameForm" onSubmit={e => onSubmit(e)}>
+        <form className="nicknameForm" onSubmit={e => onSubmit(e)}>
           <p className="p-1">Nickname: {username}</p>
           <input
-            className="usernameInput"
+            className="nicknameInput"
             minLength="1"
             maxLength="24"
             placeholder="nickname"
