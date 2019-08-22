@@ -76,7 +76,7 @@ class Chat extends React.Component {
   render() {
     const conversation = this.state.loaded ? (
       this.state.conversation.map((entry, index) => (
-        <li key={index}>
+        <li className="convList" key={index}>
           <div className="username" style={{ color: entry.user.color }}>
             {entry.user.username}
           </div>
@@ -86,7 +86,7 @@ class Chat extends React.Component {
       ))
     ) : (
       <Fragment>
-        <li>
+        <li className="convList">
           <div className="username" style={{ color: "rgb(70, 93, 170)" }}>
             Jechat
           </div>

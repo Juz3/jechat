@@ -1,15 +1,24 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 
+/* For 'components/layout/colors.js' */
+.colorCheatSheet {
+  color: rgb(53, 88, 202), rgb(35, 143, 80), rgb(143, 109, 35), rgb(126, 58, 214), rgb(7, 114, 163),
+    rgb(228, 120, 100), rgb(138, 50, 91), rgb(34, 168, 230), rgb(65, 141, 46), rgb(209, 179, 114),
+    rgb(224, 178, 27), rgb(74, 128, 96), rgb(134, 226, 233), rgb(194, 51, 51), rgb(115, 131, 122),
+    rgb(74, 104, 148);
+}
+
 body {
   font-family: "Lato", Arial, sans-serif;
   background: rgb(47, 50, 54);
+  margin: 0;
 }
 
 .container {
   text-align: center;
 }
 
-li {
+.convList {
   list-style: none;
   color: #fff;
   padding: 0.5rem 0rem;
@@ -88,15 +97,72 @@ li {
   color: #d1d1d1;
 }
 
-#spinner {
-  animation: spinner 3s infinite;
+.h1-main {
+  color: #fff;
 }
 
-.colorCheatSheet {
-  color: rgb(53, 88, 202), rgb(35, 143, 80), rgb(143, 109, 35), rgb(126, 58, 214), rgb(7, 114, 163),
-    rgb(228, 120, 100), rgb(138, 50, 91), rgb(34, 168, 230), rgb(65, 141, 46), rgb(209, 179, 114),
-    rgb(224, 178, 27), rgb(74, 128, 96), rgb(134, 226, 233), rgb(194, 51, 51), rgb(115, 131, 122),
-    rgb(74, 104, 148);
+.wip {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.el-1 {
+  color: #fff;
+  padding: 0;
+  animation: ellipsis 1s infinite;
+}
+
+.el-2 {
+  color: #fff;
+  padding: 0;
+  animation: ellipsis 1s infinite;
+}
+
+.el-3 {
+  color: #fff;
+  padding: 0;
+  animation: ellipsis 1s infinite;
+}
+
+.navbar {
+  background-color: rgb(22, 24, 31);
+  background-image: linear-gradient(to bottom right, rgb(18, 20, 27), rgb(19, 30, 75));
+  display: flex;
+  width: 100%;
+
+  justify-content: center;
+}
+
+.navbar ul {
+  display: flex;
+  flex-direction: row;
+  padding-left: 0px;
+  width: 40%;
+  justify-content: space-between;
+}
+
+.navbar li {
+  list-style: none;
+}
+
+#middleLink {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.navbar a,
+a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+#spinner {
+  animation: spinner 3s infinite;
 }
 
 @keyframes spinner {
@@ -105,6 +171,15 @@ li {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes ellipsis {
+  0% {
+    color: rgba(255, 255, 255, 0);
+  }
+  100% {
+    color: rgba(255, 255, 255, 1);
   }
 }
 

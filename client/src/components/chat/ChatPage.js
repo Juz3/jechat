@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Chat from "../chat/Chat";
-import UserForm from "./UserForm";
-import getColor from "./getColor";
+import Chat from "./Chat";
+import UserForm from "../layout/UserForm";
+import getColor from "../layout/getColor";
 
 const ChatPage = () => {
   const [user, setUser] = useState({ username: null, color: null });

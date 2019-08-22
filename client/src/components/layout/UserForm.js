@@ -24,7 +24,7 @@ const UserForm = props => {
   };
 
   return (
-    <Fragment>
+    <div className="userForm">
       {(username.length > 1 && username.length < 25 && submit) ||
       (localStorage.getItem("jechat-nickname") &&
         localStorage.getItem("jechat-nickname").length < 25) ? (
@@ -51,7 +51,7 @@ const UserForm = props => {
           <button className="btn">Ok</button>
         </form>
       )}
-    </Fragment>
+    </div>
   );
 };
 

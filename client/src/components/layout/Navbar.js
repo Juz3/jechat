@@ -5,18 +5,22 @@ const Navbar = () => {
   const mainLinks = (
     <ul>
       <li>
-        <Link to="/">/</Link>
+        <Link to="/">Home</Link>
+      </li>
+      <li id="middleLink">
+        <Link to="/login">Login</Link>
       </li>
       <li>
-        <Link to="/login">login</Link>
-      </li>
-      <li>
-        <Link to="/sketch">sketch</Link>
+        <Link to="/sketch">Sketch</Link>
       </li>
     </ul>
   );
 
-  return <Fragment>{mainLinks}</Fragment>;
+  return (
+    <Fragment>
+      <nav className="navbar">{mainLinks}</nav>
+    </Fragment>
+  );
 };
 
 export default Navbar;

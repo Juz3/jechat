@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import ChatPage from "./components/layout/ChatPage";
+import ChatPage from "./components/chat/ChatPage";
 import Navbar from "./components/layout/Navbar";
+import Sketch from "./components/sketch/Sketch";
 import NotFound from "./components/layout/NotFound";
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={ChatPage} />
+            <Route exact path="/sketch" component={Sketch} />
             <Route component={NotFound} />
           </Switch>
         </Fragment>
