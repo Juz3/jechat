@@ -4,9 +4,9 @@ const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
 const path = require("path");
 const getTime = require("./utilities/getTime");
-const connectDB = require("./config/db");
+/* const connectDB = require("./config/db");
 
-connectDB();
+connectDB(); */
 
 app.use(express.json({ extended: false }));
 
