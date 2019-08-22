@@ -36,7 +36,11 @@ io.on("connection", socket => {
 
     // When over 40 messages or oldest message is over 2 hours old, remove oldest
     if (conversation.length > 40 || newTimeHours - oldMsgHours > 2) {
-      console.log("oldest ts", oldestMessageTimestamp);
+      console.log(
+        "oldest ts",
+        oldestMessageTimestamp,
+        newTimeHours - oldMsgHours > 2
+      );
       //conversation.length = 1;
       conversation.splice(0, 1);
       conversationMemory.splice(0, 1);
