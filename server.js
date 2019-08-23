@@ -70,13 +70,14 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
-    // redirect all requests from http to https
-    if (req.headers["x-forwarded-proto"] != "https") {
+    /*     // redirect all requests from http to https
+    if (req.headers["x-forwarded-proto"] !== "https") {
       res.redirect("https://" + req.hostname + req.url);
       console.log(req.headers["x-forwarded-proto"]);
     } else {
       console.log(req.headers, req.headers["x-forwarded-proto"]);
-    }
+    } */
+    console.log("request", req);
 
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
