@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express(); // same as 'const app = require("express")();'
+const app = express(); // <-- same as 'require("express")();'
 const http = require("http");
 const httpServer = http.createServer(app);
 /* const https = require("https");
@@ -17,8 +17,11 @@ app.use(express.json({ extended: false }));
 // Routes
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
+
+// Direct http requests to https
 app.use(sslRedirect());
 
+// save conversation history to an array (before implementing database)
 let conversationMemory = [];
 
 io.on("connection", socket => {
@@ -33,15 +36,18 @@ io.on("connection", socket => {
     const oldTime = oldestMessageTimestamp.split(":");
     const EEST_DIFFERENCE = 3;
     const oldMsgHours = parseInt(oldTime[0]) + EEST_DIFFERENCE;
-    //const oldMsgMinutes = parseInt(oldTime[1]);
-
     const newTimeHours = new Date().getHours();
 
     conversationMemory = conversation;
 
     // When over 40 messages or oldest message is over 2 hours old, remove oldest
-    if (conversation.length > 40 || newTimeHours - oldMsgHours > 1) {
-      console.log("oldest ts", oldestMessageTimestamp, newTimeHours - oldMsgHours > 1);
+    if (conversation.length > 40) {
+      console.log(
+        "oldest ts",
+        oldestMessageTimestamp,
+        "Time diff (hours):",
+        newTimeHours - oldMsgHours
+      );
       //conversation.length = 1;
       conversation.splice(0, 1);
       conversationMemory.splice(0, 1);
@@ -79,8 +85,6 @@ if (process.env.NODE_ENV === "production") {
     } else {
       console.log(req.headers, req.headers["x-forwarded-proto"]);
     } */
-    console.log("request", req);
-
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
