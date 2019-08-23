@@ -28,6 +28,20 @@ class Chat extends React.Component {
     });
   }
 
+  /* componentWillUnmount() {
+    socket.off("send message", this.setSocketData);
+  }
+
+  setSocketData = payload => {
+    console.log(payload);
+    this.setState({
+      conversation: payload,
+      loaded: true
+    });
+
+    document.title = "* Jechat";
+  }; */
+
   sendMessage = () => {
     this.mainInput.value = "";
 
