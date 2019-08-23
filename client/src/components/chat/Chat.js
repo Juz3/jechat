@@ -17,7 +17,9 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    socket.on("send message", payload => {
+    console.log("componentDidMount");
+    socket.on("send message", this.setSocketData);
+    /*     socket.on("send message", payload => {
       console.log(payload);
       this.setState({
         conversation: payload,
@@ -25,10 +27,12 @@ class Chat extends React.Component {
       });
 
       document.title = "* Jechat";
-    });
+    }); */
+    socket.emit("refresh", " ");
   }
 
-  /* componentWillUnmount() {
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
     socket.off("send message", this.setSocketData);
   }
 
@@ -40,7 +44,7 @@ class Chat extends React.Component {
     });
 
     document.title = "* Jechat";
-  }; */
+  };
 
   sendMessage = () => {
     this.mainInput.value = "";

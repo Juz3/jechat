@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express(); // same as 'const app = require("express")();'
-const httpServer = require("http").createServer(app);
+const http = require("http");
+const httpServer = http.createServer(app);
+/* const https = require("https");
+const httpsServer = https.createServer(app) */
 const io = require("socket.io")(httpServer);
 const path = require("path");
 const getTime = require("./utilities/getTime");
@@ -19,7 +22,7 @@ let conversationMemory = [];
 io.on("connection", socket => {
   console.log(`User # connected!`);
 
-  if (conversationMemory.length > 1) io.emit("send message", conversationMemory);
+  if (conversationMemory.length > 0) io.emit("send message", conversationMemory);
   // on send message
   socket.on("send message", conversation => {
     console.log("new message: ", conversation);
@@ -48,6 +51,13 @@ io.on("connection", socket => {
     //console.log(getTime());
   });
 
+  // For refreshing message history when navigating from other pages back to chat page,
+  // without refreshing browser.
+  socket.on("refresh", () => {
+    io.emit("send message", conversationMemory);
+    console.log("refresh");
+  });
+
   // on disconnect
   socket.on("disconnect", () => {
     console.log(`User # disconnected.`);
@@ -60,6 +70,11 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
+    // redirect all requests from http to https
+    if (req.headers["x-forwarded-proto"] != "https" && process.env.NODE_ENV === "production") {
+      res.redirect("https://" + req.hostname + req.url);
+    }
+
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
