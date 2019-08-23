@@ -71,8 +71,11 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     // redirect all requests from http to https
-    if (req.headers["x-forwarded-proto"] != "https" && process.env.NODE_ENV === "production") {
+    if (req.headers["x-forwarded-proto"] != "https") {
       res.redirect("https://" + req.hostname + req.url);
+      console.log(req.headers["x-forwarded-proto"]);
+    } else {
+      console.log(req.headers, req.headers["x-forwarded-proto"]);
     }
 
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
