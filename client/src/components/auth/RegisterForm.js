@@ -1,11 +1,21 @@
 import React, { Fragment, useState } from "react";
 
-const RegisterForm = () => {
-  const [username, setUsername] = useState("");
+const RegisterForm = props => {
+  const [formData, setFormData] = useState({ username: "", password: "", password2: "" });
 
-  const submitRegister = e => {
+  const { username, password, password2 } = formData;
+
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const submitRegister = async e => {
     e.preventDefault();
-    console.log("submit register form", username);
+
+    if (password !== password2) {
+      // proper alert here
+      alert("passwords do not match");
+    } else {
+      props.register(username, password);
+    }
   };
 
   return (
@@ -22,10 +32,8 @@ const RegisterForm = () => {
           id="registerUsername"
           placeholder=""
           name="username"
-          onChange={e => {
-            setUsername(e.target.value);
-          }}
           required
+          onChange={e => onChange(e)}
         />
         <label htmlFor="username">Password</label>
         <input
@@ -35,6 +43,7 @@ const RegisterForm = () => {
           placeholder=""
           name="password"
           required
+          onChange={e => onChange(e)}
         />
         <label htmlFor="username">Confirm password</label>
         <input
@@ -44,6 +53,7 @@ const RegisterForm = () => {
           placeholder=""
           name="password2"
           required
+          onChange={e => onChange(e)}
         />
         <button className="btn">Register</button>
       </form>

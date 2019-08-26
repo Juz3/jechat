@@ -1,11 +1,16 @@
 import React, { Fragment, useState } from "react";
 
-const LoginForm = () => {
-  const [username, setUsername] = useState("");
+const LoginForm = props => {
+  const [formData, setFormData] = useState({ username: "", password: "" });
 
-  const submitLogin = e => {
+  const { username, password } = formData;
+
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const submitLogin = async e => {
     e.preventDefault();
-    console.log("submit login form", username);
+
+    props.login(username, password);
   };
 
   return (
@@ -22,9 +27,7 @@ const LoginForm = () => {
           id="loginUsername"
           placeholder=""
           name="username"
-          onChange={e => {
-            setUsername(e.target.value);
-          }}
+          onChange={e => onChange(e)}
           required
         />
         <label htmlFor="password">Password</label>
@@ -35,6 +38,7 @@ const LoginForm = () => {
           placeholder=""
           name="password"
           required
+          onChange={e => onChange(e)}
         />
         <button className="btn">Login</button>
       </form>

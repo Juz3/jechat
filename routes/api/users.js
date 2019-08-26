@@ -60,7 +60,7 @@ router.post(
       jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 }, (error, token) => {
         if (error) throw error;
         res.json({ token });
-        console.log(`user with username: ${username.toLowerCase()} registered`);
+        console.log(`user registered with username: '${username.toLowerCase()}' `);
       });
     } catch (error) {
       console.error(error.message);
