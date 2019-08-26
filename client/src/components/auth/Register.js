@@ -19,6 +19,7 @@ const Register = () => {
 
       if (res.status === 200) {
         setIsRegistered(true);
+        // Set auth cookie here with res.data."cookie"
         console.log(`user ${username} registered successfully`);
       }
     } catch (error) {

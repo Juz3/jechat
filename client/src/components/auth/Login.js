@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Redirect } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import axios from "axios";
 
@@ -19,6 +20,8 @@ const Login = () => {
 
       if (res.status === 200) {
         setIsLoggedIn(true);
+        // Set auth cookie here with res.data."cookie"
+        //console.log(res);
         console.log(`user ${username} logged in successfully`);
       }
     } catch (error) {

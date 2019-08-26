@@ -59,7 +59,9 @@ router.post(
 
       jwt.sign(payload, config.jwtSecret, { expiresIn: 7200 }, (error, token) => {
         if (error) throw error;
-        res.json({ token });
+        res.cookie("jwt", token, { /* httpOnly: true,  secure: true,*/ maxAge: 10800000 });
+        //res.json({ token });
+        res.status(200).send("Jwt signed");
       });
     } catch (error) {
       console.error(error.message);
