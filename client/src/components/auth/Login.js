@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import axios from "axios";
 
-const Login = () => {
+const Login = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginUser = async (username, password) => {
@@ -20,8 +20,10 @@ const Login = () => {
 
       if (res.status === 200) {
         setIsLoggedIn(true);
+
+        props.setAuth(true);
         // Set auth cookie here with res.data."cookie"
-        //console.log(res);
+        localStorage.setItem("token", res.data.token);
         console.log(`user ${username} logged in successfully`);
       }
     } catch (error) {

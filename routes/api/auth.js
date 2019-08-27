@@ -21,7 +21,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 // @route   POST api/auth
-// @desc    authenticate user & get token
+// @desc    authenticate (login) user & get token
 // @access  Public
 router.post(
   "/",
@@ -59,9 +59,9 @@ router.post(
 
       jwt.sign(payload, config.jwtSecret, { expiresIn: 7200 }, (error, token) => {
         if (error) throw error;
-        res.cookie("jwt", token, { /* httpOnly: true,  secure: true,*/ maxAge: 10800000 });
-        //res.json({ token });
-        res.status(200).send("Jwt signed");
+        /* res.cookie("jwt", token, { httpOnly: true,  secure: true, maxAge: 10800000 }); */
+        res.json({ token });
+        /* res.status(200).send("Jwt signed"); */
       });
     } catch (error) {
       console.error(error.message);
