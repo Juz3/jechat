@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { Redirect } from "react-router-dom";
 import LoginForm from "./LoginForm";
+import Spinner from "../utilities/Spinner";
 import axios from "axios";
 
 const Login = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const loginUser = async (username, password) => {
     const config = {
@@ -20,11 +22,11 @@ const Login = props => {
 
       if (res.status === 200) {
         setIsLoggedIn(true);
-
         props.setAuth(true);
-        // Set auth cookie here with res.data."cookie"
         localStorage.setItem("token", res.data.token);
         console.log(`user ${username} logged in successfully`);
+
+        setTimeout(() => setRedirect(true), 1000);
       }
     } catch (error) {
       const errors = error.response.data.errors;
@@ -36,11 +38,16 @@ const Login = props => {
 
   const success = (
     <div>
-      <h2 className="h1-main">Logged in successfully!</h2>
+      <h2 className="h1-main">Logged in successfully! Redirecting...</h2>
+      <Spinner />
     </div>
   );
 
   const pageContent = isLoggedIn ? success : form;
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
 
   return <Fragment>{pageContent}</Fragment>;
 };

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
-/* import Spinner from "../utilities/Spinner"; */
+import Spinner from "../utilities/Spinner";
 
 const socket = socketClient("/");
 
@@ -95,16 +95,7 @@ class Chat extends React.Component {
       ))
     ) : (
       <Fragment>
-        <li className="convList">
-          <div className="username" style={{ color: "rgb(70, 93, 170)" }}>
-            Jechat
-          </div>
-          <div className="timestamp">{this.getTimeStamp()}</div>
-          <div className="msg" style={{ color: "#ddd" }}>
-            Message of the day
-          </div>
-        </li>
-        {/* <Spinner /> */}
+        <Spinner />
       </Fragment>
     );
 

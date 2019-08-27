@@ -3,20 +3,15 @@ import { Redirect } from "react-router-dom";
 import Spinner from "../utilities/Spinner";
 
 const Logout = props => {
-  useEffect(() => {
-    timedAction();
-  }, []);
-
   const [redirect, setRedirect] = useState(false);
 
-  const timedAction = () => {
-    setTimeout(() => actions(), 3000);
-  };
-
-  const actions = () => {
-    props.logout();
-    setRedirect(true);
-  };
+  useEffect(() => {
+    const action = () => {
+      setRedirect(true);
+      props.logout();
+    };
+    setTimeout(action, 1000);
+  }, [props]);
 
   if (redirect) {
     return <Redirect to="/" />;
