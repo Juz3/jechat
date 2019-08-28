@@ -2,10 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import Chat from "./Chat";
 import UserProfile from "./UserProfile";
 import UserForm from "../layout/UserForm";
+import ChannelMenu from "./ChannelMenu";
 import getColor from "../layout/getColor";
 
 // IMPLEMENT AUTH CHECK SOMEWHERE
-const auth = false;
+const auth = true;
 
 const ChatPage = () => {
   const [user, setUser] = useState({ username: null, color: null });
@@ -26,6 +27,7 @@ const ChatPage = () => {
     <Fragment>
       {form}
       <Chat user={user} />
+      <ChannelMenu />
     </Fragment>
   );
 };

@@ -82,6 +82,38 @@ body {
   border: 1px solid rgb(83, 89, 109);
 }
 
+.channelMenuContainer {
+  width: 40%;
+  border: 1px solid rgb(83, 89, 109);
+  margin: auto;
+}
+
+.channelMenuContainer li {
+  list-style: none;
+  color: #fff;
+  height: 2em;
+}
+
+.channelMenuContainer li:nth-child(odd) {
+  background: rgb(57, 60, 63);
+}
+.channelMenuContainer li:nth-child(even):hover {
+  background: rgb(63, 72, 82);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.channelMenuContainer li:nth-child(odd):hover {
+  background: rgb(64, 78, 94);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.chList {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+
 /* Login & Register */
 .loginInput,
 .registerInput {
@@ -136,7 +168,8 @@ label {
   color: #d1d1d1;
 }
 
-.h1-main {
+.h1-main,
+.h2-main {
   color: #fff;
 }
 
@@ -219,7 +252,8 @@ a:visited {
 /* Extra small devices */
 @media (max-width: 575px) {
   .messages,
-  .textInput {
+  .textInput,
+  .channelMenuContainer {
     width: 95%;
   }
   .usernameInput {
@@ -236,7 +270,8 @@ a:visited {
 
 /* Small devices */
 @media (min-width: 576px) {
-  .messages {
+  .messages,
+  .channelMenuContainer {
     width: 80%;
   }
 
@@ -254,7 +289,8 @@ a:visited {
 
 /* Medium */
 @media (min-width: 768px) {
-  .messages {
+  .messages,
+  .channelMenuContainer {
     width: 70%;
   }
 
@@ -272,7 +308,8 @@ a:visited {
 
 /* Large devices */
 @media (min-width: 992px) {
-  .messages {
+  .messages,
+  .channelMenuContainer {
     width: 50%;
   }
   .textInput {
@@ -289,7 +326,8 @@ a:visited {
 
 /* Extra large devices */
 @media (min-width: 1200px) {
-  .messages {
+  .messages,
+  .channelMenuContainer {
     width: 45%;
   }
 
@@ -307,7 +345,8 @@ a:visited {
 
 /* XXL, normal desktop */
 @media (min-width: 1400px) {
-  .messages {
+  .message,
+  .channelMenuContainer {
     width: 38%;
   }
 
