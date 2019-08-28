@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import axios from "axios";
 import ChatPage from "./components/chat/ChatPage";
 import Navbar from "./components/layout/Navbar";
 import Login from "./components/auth/Login";
@@ -16,6 +17,29 @@ if (localStorage.token) {
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    verifyUser();
+  }, []);
+
+  useEffect(() => {
+    console.log("2", user);
+    if (user !== null) console.log(user._id.length);
+  }, [user]);
+
+  const verifyUser = async () => {
+    if (localStorage.token) {
+      try {
+        const res = await axios.get("/api/auth");
+
+        setUser(res.data);
+        //console.log("1", res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem("token");

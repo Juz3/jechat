@@ -90,7 +90,7 @@ body {
 
 .channelMenuContainer li {
   list-style: none;
-  color: #fff;
+  color: rgb(209, 209, 209);
   height: 2em;
 }
 
@@ -99,13 +99,13 @@ body {
 }
 .channelMenuContainer li:nth-child(even):hover {
   background: rgb(63, 72, 82);
-  border: 1px solid white;
+
   cursor: pointer;
 }
 
 .channelMenuContainer li:nth-child(odd):hover {
   background: rgb(64, 78, 94);
-  border: 1px solid white;
+
   cursor: pointer;
 }
 
