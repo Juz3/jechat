@@ -4,7 +4,7 @@ import Spinner from "../utilities/Spinner";
 
 const socket = socketClient("/");
 
-class Chat extends React.Component {
+class Chat2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,9 +17,9 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    socket.emit("join", "lobby");
+    socket.emit("join", "channel-1");
     socket.on("send message", this.setSocketData);
-    socket.emit("refresh", "lobby");
+    socket.emit("refresh", "channel-1");
   }
 
   componentWillUnmount() {
@@ -128,7 +128,7 @@ class Chat extends React.Component {
 
     return (
       <Fragment>
-        <h2 className="h1-main">lobby</h2>
+        <h2 className="h1-main">channel-1</h2>
         <ul className="messages">{conversation}</ul>
 
         {form}
@@ -137,4 +137,4 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat;
+export default Chat2;

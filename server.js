@@ -22,48 +22,78 @@ app.use("/api/auth", require("./routes/api/auth"));
 app.use(sslRedirect());
 
 // save conversation history to an array (before implementing database)
-let conversationMemory = [];
+let lobby_ConversationMemory = [];
+let ch1_ConversationMemory = [];
 
 io.on("connection", socket => {
-  console.log(`User # connected!`);
+  console.log(`User connected!`);
 
-  if (conversationMemory.length > 0) io.emit("send message", conversationMemory);
-  // on send message
-  socket.on("send message", conversation => {
-    console.log("new message: ", conversation);
+  const lobby = "lobby";
+  const ch1 = "channel-1";
 
-    const oldestMessageTimestamp = conversation[0].timestamp;
-    const oldTime = oldestMessageTimestamp.split(":");
-    const EEST_DIFFERENCE = 3;
-    const oldMsgHours = parseInt(oldTime[0]) + EEST_DIFFERENCE;
-    const newTimeHours = new Date().getHours();
+  socket.on("join", room => {
+    socket.join(room, () => {
+      //io.to(room).emit("a new user has joined the channel!");
 
-    conversationMemory = conversation;
+      switch (room) {
+        case lobby:
+          if (lobby_ConversationMemory.length > 0)
+            io.to(room).emit("send message", lobby_ConversationMemory);
+        case ch1:
+          if (ch1_ConversationMemory.length > 0)
+            io.to(room).emit("send message", ch1_ConversationMemory);
+      }
 
-    // When over 40 messages or oldest message is over 2 hours old, remove oldest
-    if (conversation.length > 40) {
-      console.log(
-        "oldest ts",
-        oldestMessageTimestamp,
-        "Time diff (hours):",
-        newTimeHours - oldMsgHours
-      );
-      //conversation.length = 1;
-      conversation.splice(0, 1);
-      conversationMemory.splice(0, 1);
-    }
+      // on send message
+      socket.on("send message", conversation => {
+        console.log("new message in room: ", room, conversation);
 
-    let payload = conversationMemory;
+        switch (room) {
+          case lobby:
+            lobby_ConversationMemory = conversation;
+            // When over 40 messages or oldest message is over 2 hours old, remove oldest
+            if (conversation.length > 40) {
+              conversation.splice(0, 1);
+              lobby_ConversationMemory.splice(0, 1);
+            }
 
-    io.emit("send message", payload);
-    //console.log(getTime());
+            let lobbyPayload = lobby_ConversationMemory;
+            io.to(room).emit("send message", lobbyPayload);
+          case ch1:
+            ch1_ConversationMemory = conversation;
+            if (conversation.length > 40) {
+              conversation.splice(0, 1);
+              ch1_ConversationMemory.splice(0, 1);
+            }
+
+            let ch1Payload = ch1_ConversationMemory;
+            io.to(room).emit("send message", ch1Payload);
+        }
+      });
+    });
   });
+
+  //socket.join("channel-1");
 
   // For refreshing message history when navigating from other pages back to chat page,
   // without refreshing browser.
-  socket.on("refresh", () => {
-    io.emit("send message", conversationMemory);
-    console.log("refresh");
+  socket.on("refresh", room => {
+    /* switch (room) {
+      case lobby:
+        io.to(lobby).emit("send message", lobby_ConversationMemory);
+        console.log("refresh lobby", room);
+      case ch1:
+        io.to(ch1).emit("send message", ch1_ConversationMemory);
+        console.log("refresh channel-1", room);
+    } */
+
+    if (room === lobby) {
+      io.to(lobby).emit("send message", lobby_ConversationMemory);
+      console.log("refresh lobby", room);
+    } else if (room === ch1) {
+      io.to(ch1).emit("send message", ch1_ConversationMemory);
+      console.log("refresh channel-1", room);
+    }
   });
 
   // on disconnect

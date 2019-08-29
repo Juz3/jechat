@@ -8,7 +8,7 @@ const ChannelMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const btn = (
+  const menuButton = (
     <button className="btn" onClick={e => handleClick(e)}>
       {isOpen ? "Close Menu" : "Open Menu"}
     </button>
@@ -26,11 +26,11 @@ const ChannelMenu = () => {
           <li>channel 4</li>
         </ul>
       </div>
-      {btn}
+      {menuButton}
     </Fragment>
   );
 
-  const content = isOpen ? channelMenu : btn;
+  const content = isOpen ? channelMenu : menuButton;
 
   return <Fragment>{content}</Fragment>;
 };

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Chat from "./Chat";
+import Chat2 from "./Chat2";
 //import UserProfile from "./UserProfile";
 import UserForm from "../layout/UserForm";
 import ChannelMenu from "./ChannelMenu";
@@ -29,6 +30,7 @@ const ChatPage = props => {
       {form}
       <Chat user={user} />
       <ChannelMenu />
+      <Chat2 user={user} />
     </Fragment>
   );
 };
