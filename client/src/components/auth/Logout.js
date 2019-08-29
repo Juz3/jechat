@@ -8,7 +8,8 @@ const Logout = props => {
   useEffect(() => {
     const action = () => {
       setRedirect(true);
-      props.logout();
+      props.setAuth(false);
+      localStorage.removeItem("token");
     };
     setTimeout(action, 1000);
   }, [props]);

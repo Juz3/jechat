@@ -5,11 +5,11 @@ import UserForm from "../layout/UserForm";
 import ChannelMenu from "./ChannelMenu";
 import getColor from "../layout/getColor";
 
-// IMPLEMENT AUTH CHECK SOMEWHERE
-const auth = true;
-
-const ChatPage = () => {
+const ChatPage = props => {
   const [user, setUser] = useState({ username: null, color: null });
+
+  // IMPLEMENT AUTH CHECK SOMEWHERE
+  const auth = props.isAuth;
 
   useEffect(() => {
     if (localStorage.getItem("jechat-nickname")) {
@@ -18,7 +18,7 @@ const ChatPage = () => {
   }, []);
 
   const nicknameUserForm = <UserForm setUserObject={setUser} />;
-  const loggedUserForm = <UserProfile />;
+  const loggedUserForm = <UserProfile loggedUser={props.user} />;
 
   // IMPLEMENT AUTH CHECK HERE
   let form = auth ? loggedUserForm : nicknameUserForm;

@@ -23,10 +23,10 @@ const App = () => {
     verifyUser();
   }, []);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log("2", user);
     if (user !== null) console.log(user._id.length);
-  }, [user]);
+  }, [user]); */
 
   const verifyUser = async () => {
     if (localStorage.token) {
@@ -34,27 +34,35 @@ const App = () => {
         const res = await axios.get("/api/auth");
 
         setUser(res.data);
+        setIsAuth(true);
         //console.log("1", res.data);
       } catch (error) {
-        console.log(error);
+        //console.error(error.response);
+
+        if (error.response.status === 401) {
+          console.log(error.response.status, "Unauthorized login attempt");
+        }
       }
     }
-  };
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    setIsAuth(false);
   };
 
   return (
     <div className="container">
       <Router>
         <Fragment>
-          <Navbar auth={isAuth} logout={logout} />
+          <Navbar auth={isAuth} />
           <Switch>
-            <Route exact path="/" component={ChatPage} />
+            <Route
+              exact
+              path="/"
+              render={props => <ChatPage {...props} isAuth={isAuth} user={user} />}
+            />
             <Route exact path="/login" render={props => <Login {...props} setAuth={setIsAuth} />} />
-            <Route exact path="/logout" render={props => <Logout {...props} logout={logout} />} />
+            <Route
+              exact
+              path="/logout"
+              render={props => <Logout {...props} setAuth={setIsAuth} />}
+            />
             <Route exact path="/register" component={Register} />
             <Route exact path="/sketch" component={Sketch} />
             <Route component={NotFound} />
