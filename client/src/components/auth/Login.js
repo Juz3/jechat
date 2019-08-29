@@ -26,11 +26,10 @@ const Login = props => {
         localStorage.setItem("token", res.data.token);
         console.log(`user ${username} logged in successfully`);
 
-        setTimeout(() => setRedirect(true), 1000);
+        setRedirect(true);
       }
     } catch (error) {
-      const errors = error.response.data.errors;
-      console.error(errors);
+      console.error(error);
     }
   };
 

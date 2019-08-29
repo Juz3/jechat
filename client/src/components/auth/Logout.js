@@ -6,12 +6,10 @@ const Logout = props => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    const action = () => {
-      setRedirect(true);
-      props.setAuth(false);
-      localStorage.removeItem("token");
-    };
-    setTimeout(action, 1000);
+    setRedirect(true);
+    props.setAuth(false);
+    props.setUser(null);
+    localStorage.removeItem("token");
   }, [props]);
 
   if (redirect) {

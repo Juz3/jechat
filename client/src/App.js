@@ -61,7 +61,7 @@ const App = () => {
             <Route
               exact
               path="/logout"
-              render={props => <Logout {...props} setAuth={setIsAuth} />}
+              render={props => <Logout {...props} setAuth={setIsAuth} setUser={setUser} />}
             />
             <Route exact path="/register" component={Register} />
             <Route exact path="/sketch" component={Sketch} />
