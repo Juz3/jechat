@@ -17,9 +17,9 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    socket.emit("join", "lobby");
+    socket.emit("join", this.props.channelName);
     socket.on("send message", this.setSocketData);
-    socket.emit("refresh", "lobby");
+    socket.emit("refresh", this.props.channelName);
   }
 
   componentWillUnmount() {
@@ -128,7 +128,7 @@ class Chat extends React.Component {
 
     return (
       <Fragment>
-        <h2 className="h1-main">lobby</h2>
+        <h2 className="h1-main">{this.props.channelName}</h2>
         <ul className="messages">{conversation}</ul>
 
         {form}

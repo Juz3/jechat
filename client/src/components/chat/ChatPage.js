@@ -25,12 +25,16 @@ const ChatPage = props => {
   //let form = auth ? loggedUserForm : nicknameUserForm;
   let form = nicknameUserForm;
 
+  const lobby = "lobby";
+  const channel_1 = "channel-1";
+
   return (
     <Fragment>
       {form}
-      <Chat user={user} />
+      <Chat user={user} channelName={lobby} />
       <ChannelMenu />
-      <Chat2 user={user} />
+      {/* <Chat user={user} channelName={channel_1} /> */}
+      <Chat2 user={user} channelName={channel_1} />
     </Fragment>
   );
 };

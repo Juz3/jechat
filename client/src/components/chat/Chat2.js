@@ -17,9 +17,9 @@ class Chat2 extends React.Component {
   }
 
   componentDidMount() {
-    socket.emit("join", "channel-1");
+    socket.emit("join", this.props.channelName);
     socket.on("send message", this.setSocketData);
-    socket.emit("refresh", "channel-1");
+    socket.emit("refresh", this.props.channelName);
   }
 
   componentWillUnmount() {

@@ -76,8 +76,6 @@ io.on("connection", socket => {
     });
   });
 
-  //socket.join("channel-1");
-
   // For refreshing message history when navigating from other pages back to chat page,
   // without refreshing browser.
   socket.on("refresh", room => {
