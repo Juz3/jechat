@@ -33,41 +33,44 @@ io.on("connection", socket => {
 
   socket.on("join", room => {
     socket.join(room, () => {
+      console.log("joined room", room);
       //io.to(room).emit("a new user has joined the channel!");
 
-      switch (room) {
-        case lobby:
-          if (lobby_ConversationMemory.length > 0)
-            io.to(room).emit("send message", lobby_ConversationMemory);
-        case ch1:
-          if (ch1_ConversationMemory.length > 0)
-            io.to(room).emit("send message", ch1_ConversationMemory);
+      if (room === lobby) {
+        if (lobby_ConversationMemory.length > 0) {
+          console.log("emit to lobby");
+          io.to(lobby).emit("send message", lobby_ConversationMemory);
+        }
+      } else if (room === ch1) {
+        if (ch1_ConversationMemory.length > 0) {
+          console.log("emit to channel-1");
+          io.to(room).emit("send message", ch1_ConversationMemory);
+        }
       }
 
       // on send message
       socket.on("send message", conversation => {
         console.log("new message in room: ", room, conversation);
 
-        switch (room) {
-          case lobby:
-            lobby_ConversationMemory = conversation;
-            // When over 40 messages or oldest message is over 2 hours old, remove oldest
-            if (conversation.length > 40) {
-              conversation.splice(0, 1);
-              lobby_ConversationMemory.splice(0, 1);
-            }
+        if (room === lobby) {
+          lobby_ConversationMemory = conversation;
+          // When over 40 messages or oldest message is over 2 hours old, remove oldest
+          if (conversation.length > 40) {
+            conversation.splice(0, 1);
+            lobby_ConversationMemory.splice(0, 1);
+          }
 
-            let lobbyPayload = lobby_ConversationMemory;
-            io.to(room).emit("send message", lobbyPayload);
-          case ch1:
-            ch1_ConversationMemory = conversation;
-            if (conversation.length > 40) {
-              conversation.splice(0, 1);
-              ch1_ConversationMemory.splice(0, 1);
-            }
+          let lobbyPayload = lobby_ConversationMemory;
+          io.to(lobby).emit("send message", lobbyPayload);
+        } else if (room === ch1) {
+          ch1_ConversationMemory = conversation;
+          if (conversation.length > 40) {
+            conversation.splice(0, 1);
+            ch1_ConversationMemory.splice(0, 1);
+          }
 
-            let ch1Payload = ch1_ConversationMemory;
-            io.to(room).emit("send message", ch1Payload);
+          let ch1Payload = ch1_ConversationMemory;
+          io.to(ch1).emit("send message", ch1Payload);
         }
       });
     });
@@ -78,15 +81,6 @@ io.on("connection", socket => {
   // For refreshing message history when navigating from other pages back to chat page,
   // without refreshing browser.
   socket.on("refresh", room => {
-    /* switch (room) {
-      case lobby:
-        io.to(lobby).emit("send message", lobby_ConversationMemory);
-        console.log("refresh lobby", room);
-      case ch1:
-        io.to(ch1).emit("send message", ch1_ConversationMemory);
-        console.log("refresh channel-1", room);
-    } */
-
     if (room === lobby) {
       io.to(lobby).emit("send message", lobby_ConversationMemory);
       console.log("refresh lobby", room);
