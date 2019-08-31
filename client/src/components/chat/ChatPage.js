@@ -14,7 +14,10 @@ const ChatPage = props => {
 
   useEffect(() => {
     if (localStorage.getItem("jechat-nickname")) {
-      setUser({ username: localStorage.getItem("jechat-nickname"), color: getColor() });
+      setUser({
+        username: localStorage.getItem("jechat-nickname"),
+        color: getColor()
+      });
     }
   }, []);
 

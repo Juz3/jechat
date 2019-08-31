@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ChannelMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,16 +15,28 @@ const ChannelMenu = () => {
     </button>
   );
 
+  const grayLinkStyle = {
+    color: "#aaa"
+  };
+
   const channelMenu = (
     <Fragment>
       <div className="channelMenuContainer">
         <h2 className="h2-main">Join Channel</h2>
         <ul className="chList">
-          <li>Lobby</li>
-          <li>channel 1</li>
-          <li>channel 2</li>
-          <li>channel 2</li>
-          <li>channel 4</li>
+          <li>
+            <Link className="chLinks" to="/channels/lobby">
+              Lobby
+            </Link>
+          </li>
+          <li>
+            <Link className="chLinks" to="/channels/channel-1">
+              channel 1
+            </Link>
+          </li>
+          <li style={grayLinkStyle}>channel 2</li>
+          <li style={grayLinkStyle}>channel 2</li>
+          <li style={grayLinkStyle}>channel 4</li>
         </ul>
       </div>
       {menuButton}

@@ -217,7 +217,8 @@ label {
 }
 
 .navbar a,
-a:visited {
+a:visited,
+.chLinks {
   color: #fff;
   text-decoration: none;
 }
