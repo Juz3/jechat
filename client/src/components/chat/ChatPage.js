@@ -9,6 +9,8 @@ import getColor from "../layout/getColor";
 const ChatPage = props => {
   const [user, setUser] = useState({ username: null, color: null });
 
+  const [channel, setChannel] = useState(null);
+
   // IMPLEMENT AUTH CHECK SOMEWHERE
   //const auth = props.isAuth;
 
@@ -19,7 +21,13 @@ const ChatPage = props => {
         color: getColor()
       });
     }
-  }, []);
+
+    if (props.channel === "channel-1") {
+      setChannel(props.channel);
+    } else {
+      setChannel(null);
+    }
+  }, [props.channel]);
 
   const nicknameUserForm = <UserForm setUserObject={setUser} />;
   //const loggedUserForm = <UserProfile loggedUser={props.user} />;
@@ -31,13 +39,16 @@ const ChatPage = props => {
   const lobby = "lobby";
   const channel_1 = "channel-1";
 
+  const chat_lobby = <Chat user={user} channelName={lobby} />;
+  const chat_channel_1 = <Chat2 user={user} channelName={channel_1} />;
+
+  const renderedChat = channel === null ? chat_lobby : chat_channel_1;
+
   return (
     <Fragment>
       {form}
-      <Chat user={user} channelName={lobby} />
+      {renderedChat}
       <ChannelMenu />
-      {/* <Chat user={user} channelName={channel_1} /> */}
-      <Chat2 user={user} channelName={channel_1} />
     </Fragment>
   );
 };

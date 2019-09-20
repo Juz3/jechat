@@ -57,6 +57,13 @@ const App = () => {
               path="/"
               render={props => <ChatPage {...props} isAuth={isAuth} user={user} />}
             />
+            <Route
+              exact
+              path="/channel-1"
+              render={props => (
+                <ChatPage {...props} isAuth={isAuth} user={user} channel={"channel-1"} />
+              )}
+            />
             <Route exact path="/login" render={props => <Login {...props} setAuth={setIsAuth} />} />
             <Route
               exact
