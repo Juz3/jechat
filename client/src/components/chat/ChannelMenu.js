@@ -24,16 +24,14 @@ const ChannelMenu = () => {
       <div className="channelMenuContainer">
         <h2 className="h2-main">Join Channel</h2>
         <ul className="chList">
-          <li>
-            <Link className="chLinks" to="/">
-              Lobby
-            </Link>
-          </li>
-          <li>
-            <Link className="chLinks" to="/channel-1">
-              channel 1
-            </Link>
-          </li>
+          <Link className="chLinks" to="/">
+            <li>Lobby</li>
+          </Link>
+
+          <Link className="chLinks" to="/channel-1">
+            <li>channel 1</li>
+          </Link>
+
           {/* <li>
             <Link className="chLinks" to="/channel-2">
               channel 2
@@ -49,9 +47,6 @@ const ChannelMenu = () => {
               channel 4
             </Link>
           </li> */}
-          <li style={grayLinkStyle}>channel 2</li>
-          <li style={grayLinkStyle}>channel 3</li>
-          <li style={grayLinkStyle}>channel 4</li>
         </ul>
       </div>
       {menuButton}

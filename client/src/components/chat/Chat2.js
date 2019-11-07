@@ -128,7 +128,7 @@ class Chat2 extends React.Component {
 
     return (
       <Fragment>
-        <h2 className="h1-main">channel-1</h2>
+        <h2 className="h1-main">channel 1</h2>
         <ul className="messages">{conversation}</ul>
 
         {form}

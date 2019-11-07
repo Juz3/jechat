@@ -42,7 +42,7 @@ const UserForm = props => {
         </Fragment>
       ) : (
         <form className="nicknameForm" onSubmit={e => onSubmit(e)}>
-          <p className="p-1">Nickname: {username}</p>
+          <p className="p-1">Set nickname to join chat: {username}</p>
           <input
             className="nicknameInput"
             minLength="1"
