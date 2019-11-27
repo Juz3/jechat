@@ -69,7 +69,7 @@ class LiveSketch extends React.Component {
     var canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
     //ctx = this.state.ctx;
-    console.log(1);
+    //console.log(1);
 
     var boundingOffset = canvas.getBoundingClientRect();
 
@@ -83,7 +83,7 @@ class LiveSketch extends React.Component {
     ctx.closePath();
 
     if (!isEmitting) {
-      console.log("returning");
+      //console.log("returning");
       return;
     }
 
