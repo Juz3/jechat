@@ -31,6 +31,8 @@ io.on("connection", socket => {
   const lobby = "lobby";
   const ch1 = "channel-1";
 
+  socket.on("liveSketch", data => socket.broadcast.emit("liveSketch", data));
+
   socket.on("join", room => {
     socket.join(room, () => {
       console.log("joined room", room);
@@ -50,15 +52,31 @@ io.on("connection", socket => {
 
       // on send message
       socket.on("send message", conversation => {
-        console.log("new message in room: ", room, conversation);
+        console.log(
+          "New message! | Room:",
+          room,
+          "| Username:",
+          conversation[conversation.length - 1].user.username,
+          "| Msg:",
+          conversation[conversation.length - 1].msg,
+          "|"
+        );
 
         if (room === lobby) {
           lobby_ConversationMemory = conversation;
-          // When over 40 messages or oldest message is over 2 hours old, remove oldest
-          if (conversation.length > 40) {
+          // When over 40 messages, remove oldest
+          if (conversation.length >= 40) {
             conversation.splice(0, 1);
             lobby_ConversationMemory.splice(0, 1);
           }
+
+          /* [
+            {
+              user: { username: "juz", color: "rgb(224, 178, 27)" },
+              msg: "aaa",
+              timestamp: "23:55:55"
+            }
+          ]; */
 
           let lobbyPayload = lobby_ConversationMemory;
           io.to(lobby).emit("send message", lobbyPayload);

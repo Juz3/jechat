@@ -7,7 +7,8 @@ import Navbar from "./components/layout/Navbar";
 import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
 import Register from "./components/auth/Register";
-import Sketch from "./components/sketch/Sketch";
+import CanvasDemo from "./components/sketch/CanvasDemo";
+import LiveSketch from "./components/sketch/LiveSketch";
 import NotFound from "./components/layout/NotFound";
 import setAuthToken from "./utilities/setAuthToken";
 
@@ -55,23 +56,37 @@ const App = () => {
             <Route
               exact
               path="/"
-              render={props => <ChatPage {...props} isAuth={isAuth} user={user} />}
+              render={props => (
+                <ChatPage {...props} isAuth={isAuth} user={user} />
+              )}
             />
             <Route
               exact
               path="/channel-1"
               render={props => (
-                <ChatPage {...props} isAuth={isAuth} user={user} channel={"channel-1"} />
+                <ChatPage
+                  {...props}
+                  isAuth={isAuth}
+                  user={user}
+                  channel={"channel-1"}
+                />
               )}
             />
-            <Route exact path="/login" render={props => <Login {...props} setAuth={setIsAuth} />} />
+            <Route
+              exact
+              path="/login"
+              render={props => <Login {...props} setAuth={setIsAuth} />}
+            />
             <Route
               exact
               path="/logout"
-              render={props => <Logout {...props} setAuth={setIsAuth} setUser={setUser} />}
+              render={props => (
+                <Logout {...props} setAuth={setIsAuth} setUser={setUser} />
+              )}
             />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/sketch" component={Sketch} />
+            <Route exact path="/canvasdemo" component={CanvasDemo} />
+            <Route exact path="/livesketch" component={LiveSketch} />
             <Route component={NotFound} />
           </Switch>
         </Fragment>

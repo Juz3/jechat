@@ -8,7 +8,10 @@ const Navbar = props => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/sketch">Sketch</Link>
+        <Link to="/livesketch">Live Sketch</Link>
+      </li>
+      <li>
+        <Link to="/canvasdemo">Canvas Demo</Link>
       </li>
       <li id="middleLink">
         <Link to="/login">Login</Link>
@@ -25,7 +28,10 @@ const Navbar = props => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/sketch">Sketch</Link>
+        <Link to="/livesketch">Live Sketch</Link>
+      </li>
+      <li>
+        <Link to="/canvasdemo">Canvas Demo</Link>
       </li>
       <li>
         <Link to="/settings">Settings</Link>
