@@ -105,7 +105,9 @@ class Chat extends React.Component {
         onSubmit={e => {
           e.preventDefault();
           console.log(this.props.user.username);
-          this.state.newMsg.length > 0 ? this.sendMessage() : console.log("msg empty");
+          this.state.newMsg.length > 0
+            ? this.sendMessage()
+            : console.log("msg empty");
         }}
       >
         <input
@@ -128,6 +130,9 @@ class Chat extends React.Component {
 
     return (
       <Fragment>
+        <p style={{ color: "#f00" }}>
+          MOTD 7.1.20: <i>Ennakkotehtävää odotellessa! -J.K.</i>
+        </p>
         <h2 className="h1-main">{this.props.channelName}</h2>
         <ul className="messages">{conversation}</ul>
 
