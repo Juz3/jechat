@@ -130,9 +130,6 @@ class Chat extends React.Component {
 
     return (
       <Fragment>
-        <p style={{ color: "#f00" }}>
-          MOTD 7.1.20: <i>Ennakkotehtävää odotellessa! -J.K.</i>
-        </p>
         <h2 className="h1-main">{this.props.channelName}</h2>
         <ul className="messages">{conversation}</ul>
 
