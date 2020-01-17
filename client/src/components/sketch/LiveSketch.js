@@ -1,7 +1,10 @@
 import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
 
-const socket = socketClient("/");
+const socket =
+  process.env.NODE_ENV === "production"
+    ? socketClient("/")
+    : socketClient("http://localhost:5000/");
 
 class LiveSketch extends React.Component {
   constructor(props) {
@@ -18,6 +21,7 @@ class LiveSketch extends React.Component {
   }
 
   componentDidMount() {
+    socket.connect();
     var canvas = this.refs.canvas;
     if (!!canvas.getContext) {
       this.clearCanvas(null, null);
@@ -28,7 +32,8 @@ class LiveSketch extends React.Component {
 
   componentWillUnmount() {
     //console.log("componentWillUnmount");
-    socket.on("liveSketch", this.onLiveDrawEvent);
+    socket.off("liveSketch");
+    socket.disconnect();
   }
 
   onMouseDown = e => {
@@ -72,6 +77,7 @@ class LiveSketch extends React.Component {
     //console.log(1);
 
     var boundingOffset = canvas.getBoundingClientRect();
+    //console.log("boundingoffset", boundingOffset);
 
     ctx.beginPath();
     ctx.moveTo(x0 - boundingOffset.left, y0 - boundingOffset.top);
@@ -194,7 +200,7 @@ class LiveSketch extends React.Component {
 
           <div className="canvasContainer">
             <canvas
-              className="canvas"
+              className="livecanvas"
               ref="canvas"
               width={1000}
               height={600}

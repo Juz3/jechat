@@ -31,10 +31,17 @@ body {
   align-content: center;
 }
 
-.canvas {
+.canvas,
+.livecanvas {
   max-width: 1200px;
   margin: auto;
 }
+
+/* .livecanvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+} */
 
 /* Chat */
 .convList {

@@ -2,7 +2,10 @@ import React, { Fragment } from "react";
 import socketClient from "socket.io-client";
 import Spinner from "../utilities/Spinner";
 
-const socket = socketClient("/");
+const socket =
+  process.env.NODE_ENV === "production"
+    ? socketClient("/")
+    : socketClient("http://localhost:5000/");
 
 class Chat2 extends React.Component {
   constructor(props) {
@@ -17,6 +20,7 @@ class Chat2 extends React.Component {
   }
 
   componentDidMount() {
+    socket.connect();
     socket.emit("join", this.props.channelName);
     socket.on("send message", this.setSocketData);
     socket.emit("refresh", this.props.channelName);
@@ -24,7 +28,8 @@ class Chat2 extends React.Component {
 
   componentWillUnmount() {
     //console.log("componentWillUnmount");
-    socket.off("send message", this.setSocketData);
+    socket.off("send message");
+    socket.disconnect();
   }
 
   setSocketData = payload => {
@@ -105,7 +110,9 @@ class Chat2 extends React.Component {
         onSubmit={e => {
           e.preventDefault();
           console.log(this.props.user.username);
-          this.state.newMsg.length > 0 ? this.sendMessage() : console.log("msg empty");
+          this.state.newMsg.length > 0
+            ? this.sendMessage()
+            : console.log("msg empty");
         }}
       >
         <input

@@ -6,7 +6,8 @@ class CanvasDemo extends React.Component {
     this.state = {
       pause: true,
       canvas: this.refs.canvas,
-      ctx: null
+      ctx: null,
+      ballCount: null
     };
   }
 
@@ -24,10 +25,10 @@ class CanvasDemo extends React.Component {
   }
 
   drawTimer = () => {
-    this.timerID = setInterval(() => this.stars(this.state.ctx, 15), 100);
+    this.timerID = setInterval(() => this.drawBalls(this.state.ctx, 15), 100);
   };
 
-  drawWithButton = () => {
+  drawWithButtonToggle = () => {
     if (!this.state.pause) {
       clearInterval(this.timerID);
       this.setState({ pause: true });
@@ -40,30 +41,33 @@ class CanvasDemo extends React.Component {
   drawCanvas = ctx => {
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, 1200, 600);
-    ctx.fillStyle = "#F00";
+    ctx.fillStyle = "#FFF";
+
+    this.setState({ ballCount: 0 });
   };
 
   // Draw random stars
-  stars = (ctx, n) => {
+  drawBalls = (ctx, n) => {
     if (typeof n === "number" && n < 10000) {
       for (var i = 0; i < n; i++) {
-        var x = this.getRnd(0, 1200);
-        var y = this.getRnd(0, 600);
+        const x = this.getRnd(0, 1200);
+        const y = this.getRnd(0, 600);
 
-        ctx.fillStyle = `rgb(
+        ctx.fillStyle = `rgba(
+          ${this.getRnd(0, 20)}, 
+          ${this.getRnd(0, 30)}, 
           ${this.getRnd(30, 250)}, 
-          ${this.getRnd(0, 10)}, 
-          ${this.getRnd(0, 10)})`;
-
-        //ctx.fillRect(x, y, 4, 4);
+          ${parseFloat(this.getRnd(50, 100) / 100)})`;
 
         ctx.strokeStyle = ctx.fillStyle;
 
         ctx.beginPath();
-        ctx.arc(x, y, this.getRnd(3, 10), 0, 2 * Math.PI);
+        ctx.arc(x, y, this.getRnd(3, 20), 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fill();
       }
+
+      this.setState({ ballCount: this.state.ballCount + n });
     }
   };
 
@@ -84,7 +88,10 @@ class CanvasDemo extends React.Component {
             width={1200}
             height={600}
           ></canvas>
-          <button className="sketchBtn" onClick={() => this.drawWithButton()}>
+          <button
+            className="sketchBtn"
+            onClick={() => this.drawWithButtonToggle()}
+          >
             Start/Stop
           </button>
           <button
@@ -93,6 +100,7 @@ class CanvasDemo extends React.Component {
           >
             Clear
           </button>
+          <p style={{ color: "#fff" }}>Ball Count: {this.state.ballCount}</p>
         </div>
       </Fragment>
     );
