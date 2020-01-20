@@ -31,13 +31,12 @@ body {
   align-content: center;
 }
 
-.canvas,
-.livecanvas {
+.canvas {
   max-width: 1200px;
   margin: auto;
 }
-
-/* .livecanvas {
+/* 
+.livecanvas {
   position: absolute;
   left: 0;
   top: 0;
@@ -191,6 +190,11 @@ label {
   background: rgb(71, 45, 45);
   color: #fff;
   border: 1px solid black;
+}
+
+.sketchBtn:hover,
+.colorPalette:hover {
+  cursor: pointer;
 }
 
 /* Common elements */

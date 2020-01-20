@@ -33,6 +33,10 @@ io.on("connection", socket => {
 
   socket.on("liveSketch", data => socket.broadcast.emit("liveSketch", data));
 
+  socket.on("liveSketchClearCanvas", data =>
+    socket.broadcast.emit("liveSketchClearCanvas", data)
+  );
+
   socket.on("join", room => {
     socket.join(room, () => {
       console.log("joined room", room);

@@ -15,9 +15,9 @@ const ChannelMenu = () => {
     </button>
   );
 
-  const grayLinkStyle = {
+  /*   const grayLinkStyle = {
     color: "#aaa"
-  };
+  }; */
 
   const channelMenu = (
     <Fragment>
