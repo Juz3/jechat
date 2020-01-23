@@ -197,14 +197,28 @@ label {
   cursor: pointer;
 }
 
+.brushSizeInput {
+  max-width: 10em;
+}
+
 /* Common elements */
 .p-1 {
   color: #d1d1d1;
 }
 
+.p-2 {
+  color: #c0c0c0;
+  margin: 0.5em 0.25em;
+}
+
 .h1-main,
 .h2-main {
   color: #fff;
+}
+
+.h3-main {
+  color: #d1d1d1;
+  margin: 0.25em;
 }
 
 .wip {

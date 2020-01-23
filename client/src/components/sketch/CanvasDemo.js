@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 
+const canvasSize = { x: 1200, y: 600 };
+
 class CanvasDemo extends React.Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ class CanvasDemo extends React.Component {
 
   drawCanvas = ctx => {
     ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, 1200, 600);
+    ctx.fillRect(0, 0, canvasSize.x, canvasSize.y);
     ctx.fillStyle = "#FFF";
 
     this.setState({ ballCount: 0 });
@@ -50,14 +52,22 @@ class CanvasDemo extends React.Component {
   drawBalls = (ctx, n) => {
     if (typeof n === "number" && n < 10000) {
       for (var i = 0; i < n; i++) {
-        const x = this.getRnd(0, 1200);
-        const y = this.getRnd(0, 600);
+        const x = this.getRnd(0, canvasSize.x);
+        const y = this.getRnd(0, canvasSize.y);
+
+        var red, blue, green;
+
+        red = Math.floor((y / canvasSize.y) * 130);
+        green = Math.floor(
+          (y / canvasSize.y + canvasSize.y / 2 / canvasSize.y) * 160
+        );
+        blue = Math.floor(255 - (y / canvasSize.y) * 200);
 
         ctx.fillStyle = `rgba(
-          ${this.getRnd(0, 20)}, 
-          ${this.getRnd(0, 30)}, 
-          ${this.getRnd(30, 250)}, 
-          ${parseFloat(this.getRnd(50, 100) / 100)})`;
+          ${red}, 
+          ${green}, 
+          ${blue}, 
+          ${parseFloat(this.getRnd(20, 100) / 100)})`;
 
         ctx.strokeStyle = ctx.fillStyle;
 
@@ -82,25 +92,29 @@ class CanvasDemo extends React.Component {
     return (
       <Fragment>
         <div className="sketchContainer">
+          <p style={{ color: "#fff", margin: "0.5em" }}>
+            Ball Count: {this.state.ballCount}
+          </p>
+          <div className="controlMenu">
+            <button
+              className="sketchBtn"
+              onClick={() => this.drawWithButtonToggle()}
+            >
+              Start/Stop
+            </button>{" "}
+            <button
+              className="sketchBtn"
+              onClick={() => this.drawCanvas(this.state.ctx)}
+            >
+              Clear
+            </button>
+          </div>
           <canvas
             className="canvas"
             ref="canvas"
-            width={1200}
-            height={600}
+            width={canvasSize.x}
+            height={canvasSize.y}
           ></canvas>
-          <button
-            className="sketchBtn"
-            onClick={() => this.drawWithButtonToggle()}
-          >
-            Start/Stop
-          </button>
-          <button
-            className="sketchBtn"
-            onClick={() => this.drawCanvas(this.state.ctx)}
-          >
-            Clear
-          </button>
-          <p style={{ color: "#fff" }}>Ball Count: {this.state.ballCount}</p>
         </div>
       </Fragment>
     );
